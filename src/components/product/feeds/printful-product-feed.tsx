@@ -33,7 +33,7 @@ export default function NewArrivalsProductFeed({
       showCategory={showCategory}
       showRating={showRating}
       sectionHeading="text-featured-products"
-      products={data}
+      // products={data}
       loading={isLoading}
       error={error?.message}
       uniqueKey="new-arrivals"

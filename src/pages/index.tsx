@@ -44,17 +44,20 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
       <BannerBlock data={masonryBanner} />
 
       <Container>
+        <ExclusiveBlock />
+        {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
+
         <PrintfulProductFeed printfulProducts={printfulProducts} />
       </Container>
 
-      <Container>
+      {/* <Container>
         <ProductsFlashSaleBlock date={"2023-03-01T01:02:03"} />
-      </Container>
+      </Container> */}
 
       <BannerSliderBlock />
 
       <Container>
-        <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" />
+        {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
         <ProductsFeatured sectionHeading="text-featured-products" limit={5} />
         <BannerCard
           key={`banner--key${banner[0].id}`}
@@ -62,21 +65,21 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
           href={`${ROUTES.COLLECTIONS}/${banner[0].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
         />
-        <BrandGridBlock sectionHeading="text-top-brands" />
-        <BannerCard
+        {/* <BrandGridBlock sectionHeading="text-top-brands" /> */}
+        {/* <BannerCard
           key={`banner--key${banner[1].id}`}
           banner={banner[1]}
           href={`${ROUTES.COLLECTIONS}/${banner[1].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
-        <BannerWithProducts
+        /> */}
+        {/* <BannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
-        />
-        <ExclusiveBlock />
-        <NewArrivalsProductFeed />
-        <DownloadApps />
-        <Support />
+        /> */}
+
+        {/* <NewArrivalsProductFeed /> */}
+        {/* <DownloadApps /> */}
+        {/* <Support /> */}
         <Instagram />
         <Subscription className="bg-opacity-0 px-5 sm:px-16 xl:px-0 py-12 md:py-14 xl:py-16" />
       </Container>

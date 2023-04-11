@@ -139,7 +139,7 @@ export default function ProductPopup() {
               {description}
             </p>
 
-            <div className="flex items-center mt-3">
+            <div className="flex items-center mt-3 justify-between mb-4 space-s-3 sm:space-s-4">
               <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
                 {formattedPrice}
               </div>
@@ -148,25 +148,6 @@ export default function ProductPopup() {
                   {basePrice}
                 </del>
               )}
-              <VariantPicker
-                value={activeVariantExternalId}
-                onChange={({ target: { value } }) =>
-                  setActiveVariantExternalId(value)
-                }
-                variants={data.variants}
-                disabled={oneStyle}
-              />
-              <button
-                className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
-                data-item-id={activeVariantExternalId}
-                data-item-price={activeVariant.retail_price}
-                data-item-url={`/api/products/${activeVariantExternalId}`}
-                data-item-description={activeVariant.name}
-                data-item-image={activeVariantFile.preview_url}
-                data-item-name={name}
-              >
-                Add to SnipCart
-              </button>
             </div>
           </div>
 
@@ -186,15 +167,34 @@ export default function ProductPopup() {
 
           <div className="pt-2 md:pt-4">
             <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
-              <Counter
+              {/* <Counter
                 quantity={quantity}
                 onIncrement={() => setQuantity((prev) => prev + 1)}
                 onDecrement={() =>
                   setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
                 }
                 disableDecrement={quantity === 1}
+              /> */}
+              <VariantPicker
+                value={activeVariantExternalId}
+                onChange={({ target: { value } }) =>
+                  setActiveVariantExternalId(value)
+                }
+                variants={data.variants}
+                disabled={oneStyle}
               />
-              <Button
+              <button
+                className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+                data-item-id={activeVariantExternalId}
+                data-item-price={activeVariant.retail_price}
+                data-item-url={`/api/products/${activeVariantExternalId}`}
+                data-item-description={activeVariant.name}
+                data-item-image={activeVariantFile.preview_url}
+                data-item-name={name}
+              >
+                Add to SnipCart
+              </button>
+              {/* <Button
                 onClick={addToCart}
                 variant="flat"
                 className={`w-full h-11 md:h-12 px-1.5 ${
@@ -204,7 +204,7 @@ export default function ProductPopup() {
                 loading={addToCartLoader}
               >
                 {t("text-add-to-cart")}
-              </Button>
+              </Button> */}
             </div>
 
             {viewCartBtn && (
