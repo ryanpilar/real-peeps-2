@@ -60,9 +60,9 @@ const ProductsBlock: React.FC<ProductsProps> = ({
 }) => {
   return (
     <div className={className}>
-      {console.log("products products", products)}
+      {/* {console.log("products products", products)}
 
-      {console.log("printfulProducts yooooooooooooooooo", printfulProducts)}
+      {console.log("printfulProducts yooooooooooooooooo", printfulProducts)} */}
 
       {sectionHeading && (
         <SectionHeader

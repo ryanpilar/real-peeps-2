@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import SearchIcon from "@components/icons/search-icon";
+// import SearchIcon from "@components/icons/search-icon";
 import { siteSettings } from "@settings/site-settings";
 import HeaderMenu from "@components/layout/header/header-menu";
 import Logo from "@components/ui/logo";
@@ -8,7 +8,9 @@ import { ROUTES } from "@utils/routes";
 import { addActiveScroll } from "@utils/add-active-scroll";
 import dynamic from "next/dynamic";
 import { useTranslation } from "next-i18next";
-import LanguageSwitcher from "@components/ui/language-switcher";
+// import LanguageSwitcher from "@components/ui/language-switcher";
+import useSnipcartCount from "@utils/useSnipcartCount";
+
 const AuthMenu = dynamic(() => import("./auth-menu"), { ssr: false });
 const CartButton = dynamic(() => import("@components/cart/cart-button"), {
   ssr: false,
@@ -16,8 +18,12 @@ const CartButton = dynamic(() => import("@components/cart/cart-button"), {
 
 type DivElementRef = React.MutableRefObject<HTMLDivElement>;
 const { site_header } = siteSettings;
+
 const Header: React.FC = () => {
   const { openSearch, openModal, setModalView, isAuthorized } = useUI();
+  const { cart } = useSnipcartCount();
+  const cartHasItems = cart.items.count !== 0;
+
   const { t } = useTranslation("common");
   const siteHeaderRef = useRef() as DivElementRef;
   addActiveScroll(siteHeaderRef);
@@ -42,17 +48,17 @@ const Header: React.FC = () => {
             className="hidden lg:flex md:ms-6 xl:ms-10"
           />
 
-          <div className="flex-shrink-0 ms-auto lg:me-5 xl:me-8 2xl:me-10">
+          {/* <div className="flex-shrink-0 ms-auto lg:me-5 xl:me-8 2xl:me-10">
             <LanguageSwitcher />
-          </div>
+          </div> */}
           <div className="hidden lg:flex justify-end items-center space-s-6 lg:space-s-5 xl:space-s-8 2xl:space-s-10 ms-auto flex-shrink-0">
-            <button
+            {/* <button
               className="flex items-center justify-center flex-shrink-0 h-auto relative focus:outline-none transform"
               onClick={openSearch}
               aria-label="search-button"
             >
               <SearchIcon />
-            </button>
+            </button> */}
 
             <button
               className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
@@ -71,9 +77,9 @@ const Header: React.FC = () => {
               className="snipcart-checkout appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
               aria-label="Cart"
             >
-              {/* {cartHasItems && (
-                  <span className="absolute bg-blue-600 rounded-full w-2 h-2 top-0 right-0 -mt-1 -mr-1"></span>
-                )} */}
+              {cartHasItems && (
+                <span className="absolute bg-blue-600 rounded-full w-2 h-2 top-0 right-0 -mt-1 -mr-1"></span>
+              )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -83,7 +89,7 @@ const Header: React.FC = () => {
                 <path d="M4 16V4H2V2h3a1 1 0 0 1 1 1v12h12.438l2-8H8V5h13.72a1 1 0 0 1 .97 1.243l-2.5 10a1 1 0 0 1-.97.757H5a1 1 0 0 1-1-1zm2 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm12 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
               </svg>
             </button>
-            <div className="-mt-0.5 flex-shrink-0">
+            {/* <div className="-mt-0.5 flex-shrink-0">
               <AuthMenu
                 isAuthorized={isAuthorized}
                 href={ROUTES.ACCOUNT}
@@ -98,7 +104,7 @@ const Header: React.FC = () => {
               >
                 {t("text-account")}
               </AuthMenu>
-            </div>
+            </div> */}
             <CartButton />
           </div>
         </div>

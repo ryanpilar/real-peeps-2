@@ -18,6 +18,8 @@ import ProductViewIcon from "@components/icons/product-view-icon";
 import ProductWishIcon from "@components/icons/product-wish-icon";
 import ProductCompareIcon from "@components/icons/product-compare-icon";
 
+import VariantPicker from "./product-variant-picker";
+
 // EXPLAIN THIS!
 import RatingDisplay from "@components/common/rating-display";
 
@@ -94,22 +96,22 @@ const ProductCard: FC<ProductProps> = ({
     ({ type }) => type === "preview"
   );
 
-  console.log("product", product);
-  console.log("activeVariant", activeVariant);
+  // console.log("product", product);
+  // console.log("activeVariant", activeVariant);
 
   // formats the price to show in the CA dollar currency
-  const formatPrice = (currency, retail_price) => {
-    const formattedPrice = new Intl.NumberFormat("en-CA", {
-      style: "currency",
-      currency: currency,
-    }).format(retail_price);
+  // const formatPrice = (currency, retail_price) => {
+  //   const formattedPrice = new Intl.NumberFormat("en-CA", {
+  //     style: "currency",
+  //     currency: currency,
+  //   }).format(retail_price);
 
-    return formattedPrice;
-  };
-  // const formattedPrice = new Intl.NumberFormat("en-CA", {
-  //   style: "currency",
-  //   currency: activeVariant.currency,
-  // }).format(activeVariant.retail_price);
+  //   return formattedPrice;
+  // };
+  const formattedPrice = new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: activeVariant.currency,
+  }).format(activeVariant.retail_price);
 
   const { openModal, setModalView, setModalData } = useUI();
 
@@ -179,7 +181,7 @@ const ProductCard: FC<ProductProps> = ({
         },
         className
       )}
-      onClick={handlePopupView}
+      // onClick={handlePopupView}
       role="button"
       title={product?.name}
     >
@@ -198,6 +200,7 @@ const ProductCard: FC<ProductProps> = ({
           },
           imageContentClassName
         )}
+        onClick={handlePopupView}
       >
         <Image
           src={product?.thumbnail_url ?? placeholderImage}
@@ -337,16 +340,20 @@ const ProductCard: FC<ProductProps> = ({
             "text-white": bgTransparent,
             "text-heading": !bgTransparent,
           })}
+          onClick={handlePopupView}
         >
           {product?.name}
         </h2>
         {!hideProductDescription && product?.description && (
-          <p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate">
+          <p
+            onClick={handlePopupView}
+            className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate"
+          >
             {product?.description}
           </p>
         )}
         <div
-          className={`font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${
+          className={`font-semibold text-sm sm:text-base mt-1.5  ${
             variant === "grid"
               ? "lg:text-lg lg:mt-2.5"
               : "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
@@ -360,11 +367,11 @@ const ProductCard: FC<ProductProps> = ({
           } ${bgTransparent ? "text-white" : "text-heading"}`}
         >
           <span
-            className={`inline-block ${
+            className={`inline-block  mb-1 ${
               demoVariant === "ancient" && "font-bold text-gray-900 text-lg"
             }`}
           >
-            {price}
+            {formattedPrice}
           </span>
           {discount && (
             <del
@@ -375,6 +382,27 @@ const ProductCard: FC<ProductProps> = ({
               {basePrice}
             </del>
           )}
+        </div>
+        <div className="flex items-center justify-between ">
+          <VariantPicker
+            value={activeVariantExternalId}
+            onChange={({ target: { value } }) =>
+              setActiveVariantExternalId(value)
+            }
+            variants={variants}
+            disabled={oneStyle}
+          />
+          <button
+            className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+            data-item-id={activeVariantExternalId}
+            data-item-price={activeVariant.retail_price}
+            data-item-url={`/api/products/${activeVariantExternalId}`}
+            data-item-description={activeVariant.name}
+            data-item-image={activeVariantFile.preview_url}
+            data-item-name={name}
+          >
+            Add to Snip
+          </button>
         </div>
       </div>
 

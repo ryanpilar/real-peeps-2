@@ -1,0 +1,120 @@
+/* CART SUMMARY */
+.snipcart-cart__secondary-header {
+  border-top: 1.5px solid black;
+  border-bottom: 1px solid black;
+}
+
+h1.snipcart__font--secondary.snipcart-cart__secondary-header-title,
+h3.snipcart__font--secondary.snipcart-cart-header__title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.95rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.snipcart__font--bold {
+  font-weight: 500;
+  line-height: 20px;
+  /* color: red; */
+}
+
+/* CART BODY */
+
+/* Cart Item Name */
+h2.snipcart-item-line__title.snipcart__font--xlarge.snipcart__font--secondary.snipcart__font--black {
+  font-weight: 450;
+  font-family: "Open Sans", sans-serif;
+}
+/* Cart Item Price */
+.snipcart-item-quantity__total-price.snipcart__font--bold.snipcart__font--secondary {
+  font-weight: 575;
+  font-size: 0.9rem;
+  font-family: "Open Sans", sans-serif;
+}
+
+/* Incrementor */
+.snipcart-item-quantity__quantity.snipcart__font--std {
+  font-family: "Open Sans", sans-serif;
+  color: white;
+
+  background: black;
+
+  border-radius: 0.5rem;
+  height: 2.25rem;
+  width: 5.7rem;
+  font-size: 0.7rem;
+
+  --tw-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  --tw-shadow-colored: 0 3px 6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+/* Incrementor + - buttons */
+.snipcart-button-icon.is-small.is-secondary {
+  background: black;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+
+  border-radius: 0.3rem;
+}
+.snipcart-button-icon.is-small.is-secondary:hover {
+  background: rgb(48, 48, 48);
+}
+.snipcart-button-icon.is-small.is-secondary:active {
+  color: #f7f447;
+}
+
+/* CART FOOTER */
+
+/* Shipping Notes */
+.snipcart-summary-fees__notice.snipcart__font--regular {
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(129, 129, 129);
+  font-style: italic;
+}
+
+/* Summary Total Span */
+.snipcart-summary-fees__title.snipcart-summary-fees__title--highlight.snipcart__font--large,
+.snipcart-summary-fees__amount.snipcart-summary-fees__amount--highlight.snipcart__font--large {
+  font-weight: 550;
+  font-size: 1.3rem;
+  font-family: "Open Sans", sans-serif;
+}
+
+footer.snipcart-cart__footer-buttons button.snipcart-button-primary,
+.snipcart-button-primary.snipcart-submit.snipcart-base-button.is-icon-right {
+  background: black;
+  border-radius: 0.375rem;
+
+  --tw-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  --tw-shadow-colored: 0 3px 6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+footer.snipcart-cart__footer-buttons button.snipcart-button-primary:hover,
+.snipcart-button-primary.snipcart-submit.snipcart-base-button.is-icon-right:hover {
+  background: rgb(48, 48, 48);
+  box-shadow: 0 0 14px 0.5px #f7f447;
+  box-shadow: 0 0 14px 0.5px rgb(102, 168, 244);
+  /* color: #fffed4; */
+}
+.snipcart-base-button.is-icon-right .snipcart-base-button__label {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 250;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+/* Checkout Flow */
+.snipcart__box--badge.snipcart__font--bold.snipcart__font--secondary {
+  /* box-shadow: 0 0 3px 0.5px rgb(102, 168, 244); */
+  /* box-shadow: 0 0 3px 0.5px rgb(174, 254, 151); */
+
+  /* border: 0.1px dashed black; */
+}
+.snipcart__box--badge.snipcart__box--badge.snipcart__box--badge-highlight.snipcart__font--bold.snipcart__font--secondary {
+  border: 0.1px dashed black;
+  /* background: white; */
+  /* color: black; */
+  box-shadow: 0 0 3px 0.5px rgb(102, 168, 244);
+}

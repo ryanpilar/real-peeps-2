@@ -32,15 +32,15 @@ export default function ProductPopup() {
     currencyCode: "CAD",
   });
 
-  console.log("DATA", data, price, basePrice, discount);
-
-  if (data.isProductFromPrintful) {
-  } else {
-  }
+  // console.log("DATA", data, price, basePrice, discount);
 
   const variations = getVariations(data.variations);
 
-  const { slug, image, name, description, variants } = data;
+  const { slug, image, name, description } = data;
+
+  // if (data.isProductFromPrintful) {
+  const { variants } = data;
+
   // gets the first variant from the list
   const [firstVariant] = variants;
   // checks if there's only one variant
@@ -66,6 +66,7 @@ export default function ProductPopup() {
     style: "currency",
     currency: activeVariant.currency,
   }).format(activeVariant.retail_price);
+  // }
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -141,7 +142,7 @@ export default function ProductPopup() {
 
             <div className="flex items-center mt-3 justify-between mb-4 space-s-3 sm:space-s-4">
               <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
-                {formattedPrice}
+                {data.isProductPrintful ? formattedPrice : price}
               </div>
               {discount && (
                 <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
@@ -175,36 +176,46 @@ export default function ProductPopup() {
                 }
                 disableDecrement={quantity === 1}
               /> */}
-              <VariantPicker
-                value={activeVariantExternalId}
-                onChange={({ target: { value } }) =>
-                  setActiveVariantExternalId(value)
-                }
-                variants={data.variants}
-                disabled={oneStyle}
-              />
-              <button
-                className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
-                data-item-id={activeVariantExternalId}
-                data-item-price={activeVariant.retail_price}
-                data-item-url={`/api/products/${activeVariantExternalId}`}
-                data-item-description={activeVariant.name}
-                data-item-image={activeVariantFile.preview_url}
-                data-item-name={name}
-              >
-                Add to SnipCart
-              </button>
-              {/* <Button
-                onClick={addToCart}
-                variant="flat"
-                className={`w-full h-11 md:h-12 px-1.5 ${
-                  !isSelected && "bg-gray-400 hover:bg-gray-400"
-                }`}
-                disabled={!isSelected}
-                loading={addToCartLoader}
-              >
-                {t("text-add-to-cart")}
-              </Button> */}
+
+              {/* {data.isProductFromPrintful && ( */}
+              <>
+                <VariantPicker
+                  value={activeVariantExternalId}
+                  onChange={({ target: { value } }) =>
+                    setActiveVariantExternalId(value)
+                  }
+                  variants={data.variants}
+                  disabled={oneStyle}
+                />
+                <Button
+                  className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+                  data-item-id={activeVariantExternalId}
+                  data-item-price={activeVariant.retail_price}
+                  data-item-url={`/api/products/${activeVariantExternalId}`}
+                  data-item-description={activeVariant.name}
+                  data-item-image={activeVariantFile.preview_url}
+                  data-item-name={name}
+                >
+                  Add to Snip
+                </Button>
+              </>
+              {/* )} */}
+
+              {!data.isProductFromPrintful && (
+                <>
+                  <Button
+                    onClick={addToCart}
+                    variant="flat"
+                    className={`w-full h-11 md:h-12 px-1.5 ${
+                      !isSelected && "bg-gray-400 hover:bg-gray-400"
+                    }`}
+                    disabled={!isSelected}
+                    loading={addToCartLoader}
+                  >
+                    {t("text-add-to-cart")}
+                  </Button>
+                </>
+              )}
             </div>
 
             {viewCartBtn && (

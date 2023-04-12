@@ -128,6 +128,7 @@ import "@styles/swiper-carousel.css";
 import "@styles/custom-plugins.css";
 import "@styles/tailwind.css";
 import "@styles/rc-drawer.css";
+import "@styles/snipcart.css";
 
 // checks whether the language of the locale is right-to-left (RTL) or not.
 import { getDirection } from "@utils/get-direction";
