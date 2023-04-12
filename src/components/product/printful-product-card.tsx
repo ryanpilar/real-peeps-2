@@ -393,7 +393,8 @@ const ProductCard: FC<ProductProps> = ({
             disabled={oneStyle}
           />
           <button
-            className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+            // className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+            className="snipcart-add-item"
             data-item-id={activeVariantExternalId}
             data-item-price={activeVariant.retail_price}
             data-item-url={`/api/products/${activeVariantExternalId}`}
