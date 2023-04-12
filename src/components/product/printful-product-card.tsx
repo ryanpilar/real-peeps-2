@@ -1,6 +1,7 @@
 // EXPLAIN THIS!
 import cn from "classnames";
 import Image from "next/image";
+
 import type { FC } from "react";
 
 import { useState } from "react";
@@ -14,6 +15,7 @@ import usePrice from "@framework/product/use-price";
 // import ProductIcon1 from '../../../public/assets/images/products/icons/product-icon1.svg'
 // import ProductIcon2 from '../../../public/assets/images/products/icons/product-icon2.svg'
 // import ProductIcon3 from '../../../public/assets/images/products/icons/product-icon3.svg'
+
 import ProductViewIcon from "@components/icons/product-view-icon";
 import ProductWishIcon from "@components/icons/product-wish-icon";
 import ProductCompareIcon from "@components/icons/product-compare-icon";
@@ -124,22 +126,9 @@ const ProductCard: FC<ProductProps> = ({
     amount: Number(activeVariant.retail_price),
     baseAmount: Number(activeVariant.retail_price),
     currencyCode: "CAD",
-
-    // amount: product.sale_price ? product.sale_price : product.price,
-    // baseAmount: product.price,
-    // currencyCode: "USD",
   });
 
-  // const price = activeVariant.retail_price - 3;
-
-  // const price = formatPrice(activeVariant.currency, activeVariant.retail_price);
-  // const basePrice = formatPrice(
-  //   activeVariant.currency,
-  //   activeVariant.retail_price
-  // );
-  // const discount = null;
-
-  console.log("price, basePrice, discount", price, basePrice, discount);
+  // console.log("price, basePrice, discount", price, basePrice, discount);
 
   product.price = Number(activeVariant.retail_price);
   product.isProductFromPrintful = true;
@@ -393,8 +382,8 @@ const ProductCard: FC<ProductProps> = ({
             disabled={oneStyle}
           />
           <button
-            // className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
-            className="snipcart-add-item"
+            className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+            // className="snipcart-add-item"
             data-item-id={activeVariantExternalId}
             data-item-price={activeVariant.retail_price}
             data-item-url={`/api/products/${activeVariantExternalId}`}
@@ -407,12 +396,12 @@ const ProductCard: FC<ProductProps> = ({
         </div>
       </div>
 
-      {(variant === "gridTrendy" || variant === "gridModern") && (
-        <div className="absolute end-2 bottom-2 flex gap-x-2">
-          <ProductWishIcon className="transition ease-in duration-300 sm:opacity-0 group-hover:opacity-100 delay-200 w-[35px] sm:w-[42px] lg:w-[52px] bg-[#F1F3F4] rounded-md" />
-          <ProductCompareIcon className="transition ease-in duration-300 sm:opacity-0 group-hover:opacity-100 delay-300 w-[35px] sm:w-[42px] lg:w-[52px] bg-[#F1F3F4] rounded-md" />
-        </div>
-      )}
+      {/* {(variant === "gridTrendy" || variant === "gridModern") && ( */}
+      <div className="absolute end-2 top-2 flex gap-x-2">
+        <ProductWishIcon className="transition ease-in duration-300 sm:opacity-0 group-hover:opacity-100 delay-200 w-[35px] sm:w-[42px] lg:w-[52px] bg-[#F1F3F4] rounded-md" />
+        {/* <ProductCompareIcon className="transition ease-in duration-300 sm:opacity-0 group-hover:opacity-100 delay-300 w-[35px] sm:w-[42px] lg:w-[52px] bg-[#F1F3F4] rounded-md" /> */}
+      </div>
+      {/* )} */}
     </div>
   );
 };

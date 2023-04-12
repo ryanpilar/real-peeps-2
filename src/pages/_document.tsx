@@ -35,7 +35,7 @@ export default class CustomDocument extends Document {
 
         {/* <body className="antialiased"> */}
 
-        <body>
+        <body className="antialiased">
           <Main />
           <NextScript />
           <script
