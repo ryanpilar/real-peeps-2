@@ -93,13 +93,13 @@ Home.Layout = Layout;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const { result: productIds } = await printful.get("sync/products");
 
-  console.log("productIds", productIds);
+  // console.log("productIds", productIds);
 
   const allProducts = await Promise.all(
     productIds.map(async ({ id }) => await printful.get(`sync/products/${id}`))
   );
 
-  console.log("allProducts", allProducts);
+  // console.log("allProducts", allProducts);
 
   const printfulProducts: PrintfulProduct[] = allProducts.map(
     ({ result: { sync_product, sync_variants } }) => ({
