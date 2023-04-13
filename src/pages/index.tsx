@@ -2,21 +2,21 @@ import * as React from "react";
 
 import BannerCard from "@components/common/banner-card";
 import Container from "@components/ui/container";
-import BrandGridBlock from "@containers/brand-grid-block";
-import CategoryBlock from "@containers/category-block";
+// import BrandGridBlock from "@containers/brand-grid-block";
+// import CategoryBlock from "@containers/category-block";
 import Layout from "@components/layout/layout";
-import BannerWithProducts from "@containers/banner-with-products";
+// import BannerWithProducts from "@containers/banner-with-products";
 import BannerBlock from "@containers/banner-block";
 import Divider from "@components/ui/divider";
-import DownloadApps from "@components/common/download-apps";
-import Support from "@components/common/support";
+// import DownloadApps from "@components/common/download-apps";
+// import Support from "@components/common/support";
 import Instagram from "@components/common/instagram";
-import ProductsFlashSaleBlock from "@containers/product-flash-sale-block";
-import ProductsFeatured from "@containers/products-featured";
+// import ProductsFlashSaleBlock from "@containers/product-flash-sale-block";
+// import ProductsFeatured from "@containers/products-featured";
 import BannerSliderBlock from "@containers/banner-slider-block";
 import ExclusiveBlock from "@containers/exclusive-block";
 import Subscription from "@components/common/subscription";
-import NewArrivalsProductFeed from "@components/product/feeds/new-arrivals-product-feed";
+// import NewArrivalsProductFeed from "@components/product/feeds/new-arrivals-product-feed";
 import PrintfulProductFeed from "@components/product/feeds/printful-product-feed";
 
 import { homeThreeBanner as banner } from "@framework/static/banner";
@@ -58,7 +58,7 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
 
       <Container>
         {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
-        <ProductsFeatured sectionHeading="text-featured-products" limit={5} />
+        {/* <ProductsFeatured sectionHeading="text-featured-products" limit={5} /> */}
         <BannerCard
           key={`banner--key${banner[0].id}`}
           banner={banner[0]}

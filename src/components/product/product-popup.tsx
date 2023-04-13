@@ -188,7 +188,7 @@ export default function ProductPopup() {
                   disabled={oneStyle}
                 />
                 <Button
-                  className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+                  className="w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
                   data-item-id={activeVariantExternalId}
                   data-item-price={activeVariant.retail_price}
                   data-item-url={`/api/products/${activeVariantExternalId}`}
