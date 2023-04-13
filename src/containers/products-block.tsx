@@ -112,8 +112,9 @@ const ProductsBlock: React.FC<ProductsProps> = ({
               />
             ))
           )}
-
+          {/* 
           {loading && printfulProducts ? (
+          
             <ProductFeedLoader limit={limit} uniqueKey={uniqueKey} />
           ) : (
             printfulProducts?.map((product) => (
@@ -132,7 +133,25 @@ const ProductsBlock: React.FC<ProductsProps> = ({
                 // printfulProducts={printfulProducts}
               />
             ))
-          )}
+          )} */}
+
+          {printfulProducts &&
+            printfulProducts?.map((product) => (
+              <PrintfulProductCard
+                showCategory={showCategory}
+                showRating={showRating}
+                hideProductDescription={hideProductDescription}
+                key={`product--key${product.id}`}
+                imgWidth={imgWidth}
+                imgHeight={imgHeight}
+                variant={variant}
+                demoVariant={demoVariant}
+                disableBorderRadius={disableBorderRadius}
+                product={product}
+
+                // printfulProducts={printfulProducts}
+              />
+            ))}
         </div>
       )}
     </div>
