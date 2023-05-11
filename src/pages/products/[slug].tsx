@@ -88,12 +88,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, [
-        "common",
-        "forms",
-        "menu",
-        "footer",
-      ])),
+      // ...(await serverSideTranslations(locale!, [
+      //   "common",
+      //   "forms",
+      //   "menu",
+      //   "footer",
+      // ])),
       printfulProduct,
       slug: slug,
       dehydratedState: dehydrate(queryClient),
