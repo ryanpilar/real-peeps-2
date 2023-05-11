@@ -42,7 +42,9 @@ export default function ProductPage({ printfulProduct, slug }: any) {
         <div className="pt-8">
           <Breadcrumb />
         </div>
-        <ProductSingleDetails productDetails={printfulProductData} />
+        {printfulProductData && (
+          <ProductSingleDetails productDetails={printfulProductData} />
+        )}
         <RelatedProducts sectionHeading="text-related-products" />
         <Subscription />
       </Container>
