@@ -59,10 +59,10 @@ const Home: React.FC<IndexPageProps> = ({
     async () => {
       const data = await fetchPrintfulProducts();
       return data;
+    },
+    {
+      initialData: initialData,
     }
-    // {
-    //   initialData: initialData,
-    // }
   );
 
   return (
@@ -130,45 +130,45 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     async () => await fetchPrintfulProducts()
   );
 
-  // const { result: products } = await printful.get("sync/products");
+  const { result: products } = await printful.get("sync/products");
 
-  // // Use Id's to fetch printful product information
-  // const allPrintfulProducts = await Promise.all(
-  //   products.map(
-  //     async ({ id }: any) => await printful.get(`sync/products/${id}`)
-  //   )
-  // );
+  // Use Id's to fetch printful product information
+  const allPrintfulProducts = await Promise.all(
+    products.map(
+      async ({ id }: any) => await printful.get(`sync/products/${id}`)
+    )
+  );
 
-  // // Put together a list of new objects of PrintfulProduct
-  // const printfulProducts: PrintfulProduct[] = allPrintfulProducts.map(
-  //   // Make a new object by destructuring and extracting sync_product and sync_variants
-  //   ({ result: { sync_product, sync_variants } }) => ({
-  //     ...sync_product,
-  //     variants: sync_variants.map(({ name, ...variant }: any) => ({
-  //       name: formatVariantName(name),
-  //       ...variant,
-  //     })),
-  //   })
-  // );
+  // Put together a list of new objects of PrintfulProduct
+  const printfulProducts: PrintfulProduct[] = allPrintfulProducts.map(
+    // Make a new object by destructuring and extracting sync_product and sync_variants
+    ({ result: { sync_product, sync_variants } }) => ({
+      ...sync_product,
+      variants: sync_variants.map(({ name, ...variant }: any) => ({
+        name: formatVariantName(name),
+        ...variant,
+      })),
+    })
+  );
 
-  // // Use Id's to fetch contentful product information
-  // const contentfulProducts = await getContentfulProducts();
+  // Use Id's to fetch contentful product information
+  const contentfulProducts = await getContentfulProducts();
 
-  // // Combine Printful and Contentful data
-  // let combinedProductData = null;
+  // Combine Printful and Contentful data
+  let combinedProductData = null;
 
-  // if (contentfulProducts) {
-  //   combinedProductData = printfulProducts.map((product) => {
-  //     const contentfulEntry = contentfulProducts.find((entry: any) => {
-  //       return entry.fields.printfulId === String(product.id);
-  //     });
+  if (contentfulProducts) {
+    combinedProductData = printfulProducts.map((product) => {
+      const contentfulEntry = contentfulProducts.find((entry: any) => {
+        return entry.fields.printfulId === String(product.id);
+      });
 
-  //     return {
-  //       printfulData: { ...product },
-  //       contentfulData: contentfulEntry === undefined ? null : contentfulEntry,
-  //     };
-  //   });
-  // }
+      return {
+        printfulData: { ...product },
+        contentfulData: contentfulEntry === undefined ? null : contentfulEntry,
+      };
+    });
+  }
 
   return {
     props: {
@@ -178,8 +178,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         "menu",
         "footer",
       ])),
-      // printfulProducts,
-      // combinedProductData,
+      printfulProducts,
+      combinedProductData,
       dehydratedState: dehydrate(queryClient),
     },
   };
