@@ -1,15 +1,15 @@
-import { useCategoriesQuery } from "@framework/category/get-all-categories";
+import { useLifestyleQuery } from "@framework/category/get-all-categories";
 import { CheckBox } from "@components/ui/checkbox"; // custom checkbox component
 import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-export const CategoryFilter = () => {
+export const LifestyleFilter = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { pathname, query } = router; // Extracting the current pathname and query parameters
 
-  const { data, isLoading } = useCategoriesQuery({
+  const { data, isLoading } = useLifestyleQuery({
     limit: 10,
   });
   // Extracting the currently selected categories from the query parameters
@@ -67,7 +67,7 @@ export const CategoryFilter = () => {
   return (
     <div className="block border-b border-gray-300 pb-7 mb-7">
       <h3 className="text-heading text-sm md:text-base font-semibold mb-7">
-        {t("Wear")}
+        {t("Lifestyle")}
       </h3>
       <div className="mt-2 flex flex-col space-y-4">
         {items?.map((item: any) => (

@@ -6,35 +6,92 @@ import RelatedProducts from "@containers/related-products";
 import Divider from "@components/ui/divider";
 import Breadcrumb from "@components/common/breadcrumb";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 
-export default function ProductPage() {
-	return (
-		<>
-			<Divider className="mb-0" />
-			<Container>
-				<div className="pt-8">
-					<Breadcrumb />
-				</div>
-				<ProductSingleDetails />
-				<RelatedProducts sectionHeading="text-related-products" />
-				<Subscription />
-			</Container>
-		</>
-	);
+import { usePrintfulProductQuery } from "@framework/product/get-printful-product";
+
+import { QueryClient } from "react-query";
+
+import { getContentfulProducts } from "@utils/useContentful";
+
+import { fetchPrintfulProduct } from "../../framework/basic-rest/product/get-printful-product";
+import { API_ENDPOINTS } from "../../framework/basic-rest/utils/api-endpoints";
+
+import { useQuery } from "react-query";
+import { dehydrate } from "react-query/hydration";
+
+export default function ProductPage({ printfulProduct, slug }: any) {
+  // Data fetch/cache via react-query
+  // const slug = printfulProduct.id;
+
+  const { data: printfulProductData } = useQuery(
+    [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
+    async () => {
+      const data = await fetchPrintfulProduct(slug);
+      return data;
+    },
+    {
+      initialData: printfulProduct,
+    }
+  );
+
+  return (
+    <>
+      <Divider className="mb-0" />
+      <Container>
+        <div className="pt-8">
+          <Breadcrumb />
+        </div>
+        <ProductSingleDetails productDetails={printfulProductData} />
+        <RelatedProducts sectionHeading="text-related-products" />
+        <Subscription />
+      </Container>
+    </>
+  );
 }
 
 ProductPage.Layout = Layout;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-	return {
-		props: {
-			...(await serverSideTranslations(locale!, [
-				"common",
-				"forms",
-				"menu",
-				"footer",
-			])),
-		},
-	};
+export async function getStaticPaths() {
+  // Use Id's to fetch contentful product information
+  const contentfulProducts = await getContentfulProducts();
+  const paths = contentfulProducts.map((product: any) => {
+    return {
+      params: { slug: product.fields.printfulId },
+    };
+  });
+
+  // return an object with the paths and fallback value
+  return { paths, fallback: true };
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+  const queryClient = new QueryClient();
+  const { slug }: any = params;
+
+  // run the data fetch request through reat-query for PWA
+  await queryClient.prefetchQuery(
+    [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
+    await fetchPrintfulProduct(slug)
+  );
+
+  // console.log("SLUGSLUG", slug, typeof slug);
+
+  // this will fetch a printful product, and then look up additional data in contentful
+  const printfulProduct = await fetchPrintfulProduct(slug);
+  // console.log("printfulProductTT", printfulProduct);
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, [
+        "common",
+        "forms",
+        "menu",
+        "footer",
+      ])),
+      printfulProduct,
+      slug: slug,
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };

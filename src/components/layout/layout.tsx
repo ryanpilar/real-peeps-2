@@ -20,14 +20,15 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
             content: "width=device-width, initial-scale=1.0",
           },
         ]}
-        title="ChawkBazar React - React Next E-commerce Template"
-        description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
+        title="Real Peeps - Creative collaberative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends"
+        description="Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends"
         canonical="https://chawkbazar.vercel.app/"
         openGraph={{
           url: "https://chawkbazar.vercel.app",
-          title: "ChawkBazar React - React Next E-commerce Template",
+          title:
+            "Real Peeps - Creative collaberative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends",
           description:
-            "Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS.",
+            "Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends",
           images: [
             {
               url: "/assets/images/og-image-01.png",

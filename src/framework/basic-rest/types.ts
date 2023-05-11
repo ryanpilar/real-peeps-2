@@ -253,6 +253,28 @@ export type Product = {
   [key: string]: unknown;
   isNewArrival?: boolean;
   printfulProducts?: PrintfulProduct[];
+  contentfulProducts?: ContentfulProduct;
+};
+export type ContentfulProduct = {
+  id?: number | string;
+  name?: string;
+  images?: Attachment[];
+  mainDescription?: string;
+  productDetails?: string;
+  additionalInfo?: string;
+  variations?: object;
+  variants?: any;
+  [key: string]: unknown;
+  slug?: string;
+
+  price?: number;
+  quantity?: number;
+  sale_price?: number;
+  sku?: string;
+  gallery?: Attachment[];
+  category?: Category;
+  tag?: Tag[];
+  meta?: any[];
 };
 
 export type OrderItem = {

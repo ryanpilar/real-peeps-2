@@ -1,0 +1,57 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "All Art",
+      "slug": "art",
+      "productCount": 20,
+      "icon": "/assets/images/category/icons/woman.png",
+      "tags": ["shovia", "fusion", "elegance", "fashadil", "blaze"],
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/category/woman.jpg",
+        "original": "/assets/images/category/woman.jpg"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Original Pieces",
+      "slug": "original-art",
+      "productCount": 20,
+      "icon": "/assets/images/category/icons/woman.png",
+      "tags": ["shovia", "fusion", "elegance", "fashadil", "blaze"],
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/category/woman.jpg",
+        "original": "/assets/images/category/woman.jpg"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Canvas Prints",
+      "slug": "canvas",
+      "productCount": 20,
+      "icon": "/assets/images/category/icons/man.png",
+      "tags": ["shovia", "fusion", "elegance", "blaze"],
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/category/man.jpg",
+        "original": "/assets/images/category/man.jpg"
+      }
+    },
+
+    {
+      "id": 5,
+      "name": "Photo Paper Prints",
+      "slug": "photo-print",
+      "productCount": 20,
+      "icon": "/assets/images/category/icons/sports.png",
+      "tags": ["fusion", "elegance", "blaze"],
+      "image": {
+        "id": 1,
+        "thumbnail": "/assets/images/category/sports.jpg",
+        "original": "/assets/images/category/sports.jpg"
+      }
+    }
+  ]
+}

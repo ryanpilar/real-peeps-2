@@ -94,6 +94,7 @@ export interface ISyncProduct {
 
 export interface PrintfulProduct {
   id: string;
+  external_id: string;
   name: string;
 }
 
@@ -101,3 +102,7 @@ export type PrintfulShippingItem = {
   external_variant_id: string;
   quantity: number;
 };
+
+export interface ContentfulType {
+  contentfulType: string;
+}

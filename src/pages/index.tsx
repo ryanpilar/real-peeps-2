@@ -32,13 +32,39 @@ import { formatVariantName } from "../lib/format-variant-name";
 import { PrintfulProduct } from "src/types";
 
 // import { shuffle } from "lodash";
+import { getContentfulProducts } from "../utils/useContentful";
+
+import { QueryClient } from "react-query";
+
+import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
+
+import { fetchPrintfulProducts } from "@framework/product/get-printful-product";
+
+import { dehydrate } from "react-query/hydration";
+import { useQuery } from "react-query";
 
 type IndexPageProps = {
   printfulProducts: PrintfulProduct[];
+  combinedProductData: any;
 };
 
-const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
-  // export default function Home({ products }) {
+const Home: React.FC<IndexPageProps> = ({
+  printfulProducts,
+  combinedProductData,
+}) => {
+  const initialData = { printfulProducts, combinedProductData };
+
+  const { data: printfulProductsData } = useQuery(
+    [API_ENDPOINTS.PRINTFUL_PRODUCT],
+    async () => {
+      const data = await fetchPrintfulProducts();
+      return data;
+    }
+    // {
+    //   initialData: initialData,
+    // }
+  );
+
   return (
     <>
       <BannerBlock data={masonryBanner} />
@@ -47,7 +73,10 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
         <ExclusiveBlock />
         {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
 
-        <PrintfulProductFeed printfulProducts={printfulProducts} />
+        <PrintfulProductFeed
+          printfulProducts={printfulProductsData.printfulProducts}
+          combinedProductData={printfulProductsData.combinedProductData}
+        />
       </Container>
 
       {/* <Container>
@@ -59,12 +88,12 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
       <Container>
         {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
         {/* <ProductsFeatured sectionHeading="text-featured-products" limit={5} /> */}
-        <BannerCard
+        {/* <BannerCard
           key={`banner--key${banner[0].id}`}
           banner={banner[0]}
           href={`${ROUTES.COLLECTIONS}/${banner[0].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-        />
+        /> */}
         {/* <BrandGridBlock sectionHeading="text-top-brands" /> */}
         {/* <BannerCard
           key={`banner--key${banner[1].id}`}
@@ -80,7 +109,7 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
         {/* <NewArrivalsProductFeed /> */}
         {/* <DownloadApps /> */}
         {/* <Support /> */}
-        <Instagram />
+        {/* <Instagram /> */}
         <Subscription className="bg-opacity-0 px-5 sm:px-16 xl:px-0 py-12 md:py-14 xl:py-16" />
       </Container>
       <Divider className="mb-0" />
@@ -91,25 +120,55 @@ const Home: React.FC<IndexPageProps> = ({ printfulProducts }) => {
 Home.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const { result: productIds } = await printful.get("sync/products");
+  const queryClient = new QueryClient();
 
-  // console.log("productIds", productIds);
+  console.log("HEY TESTY");
 
-  const allProducts = await Promise.all(
-    productIds.map(async ({ id }) => await printful.get(`sync/products/${id}`))
+  // run the data fetch request through reat-query for PWA
+  await queryClient.prefetchQuery(
+    [API_ENDPOINTS.PRINTFUL_PRODUCT],
+    async () => await fetchPrintfulProducts()
   );
 
-  // console.log("allProducts", allProducts);
+  // const { result: products } = await printful.get("sync/products");
 
-  const printfulProducts: PrintfulProduct[] = allProducts.map(
-    ({ result: { sync_product, sync_variants } }) => ({
-      ...sync_product,
-      variants: sync_variants.map(({ name, ...variant }) => ({
-        name: formatVariantName(name),
-        ...variant,
-      })),
-    })
-  );
+  // // Use Id's to fetch printful product information
+  // const allPrintfulProducts = await Promise.all(
+  //   products.map(
+  //     async ({ id }: any) => await printful.get(`sync/products/${id}`)
+  //   )
+  // );
+
+  // // Put together a list of new objects of PrintfulProduct
+  // const printfulProducts: PrintfulProduct[] = allPrintfulProducts.map(
+  //   // Make a new object by destructuring and extracting sync_product and sync_variants
+  //   ({ result: { sync_product, sync_variants } }) => ({
+  //     ...sync_product,
+  //     variants: sync_variants.map(({ name, ...variant }: any) => ({
+  //       name: formatVariantName(name),
+  //       ...variant,
+  //     })),
+  //   })
+  // );
+
+  // // Use Id's to fetch contentful product information
+  // const contentfulProducts = await getContentfulProducts();
+
+  // // Combine Printful and Contentful data
+  // let combinedProductData = null;
+
+  // if (contentfulProducts) {
+  //   combinedProductData = printfulProducts.map((product) => {
+  //     const contentfulEntry = contentfulProducts.find((entry: any) => {
+  //       return entry.fields.printfulId === String(product.id);
+  //     });
+
+  //     return {
+  //       printfulData: { ...product },
+  //       contentfulData: contentfulEntry === undefined ? null : contentfulEntry,
+  //     };
+  //   });
+  // }
 
   return {
     props: {
@@ -119,7 +178,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         "menu",
         "footer",
       ])),
-      printfulProducts,
+      // printfulProducts,
+      // combinedProductData,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

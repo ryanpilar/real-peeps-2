@@ -54,7 +54,8 @@ interface ProductProps {
   bgGray?: boolean;
   demoVariant?: "ancient";
   disableBorderRadius?: boolean;
-  // printfulProduct?: PrintfulProduct;
+  contentfulData?: any;
+  // combinedProductData?: any;
 }
 
 const ProductCard: FC<ProductProps> = ({
@@ -73,9 +74,10 @@ const ProductCard: FC<ProductProps> = ({
   bgGray = false,
   demoVariant,
   disableBorderRadius = false,
+  contentfulData,
 }) => {
   // console.log("printfulProducts cheeeeeeeeeow", printfulProducts);
-  // console.log("wowee template products", product);
+  // console.log("FETCHED DATA FOR PRODUCT CARD", product);
 
   const { id, name, variants } = product;
   // gets the first variant from the list
@@ -90,12 +92,12 @@ const ProductCard: FC<ProductProps> = ({
 
   // gets the active variant object based on the active variant external id
   const activeVariant = variants.find(
-    (v) => v.external_id === activeVariantExternalId
+    (v: any) => v.external_id === activeVariantExternalId
   );
 
   // gets the active variant's file with type "preview"
   const activeVariantFile = activeVariant.files.find(
-    ({ type }) => type === "preview"
+    ({ type }: any) => type === "preview"
   );
 
   // console.log("product", product);
@@ -120,9 +122,9 @@ const ProductCard: FC<ProductProps> = ({
   const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
 
   const { price, basePrice, discount } = usePrice({
-    amount: product.sale_price
-      ? product.sale_price
-      : Number(activeVariant.retail_price),
+    // amount: product.sale_price
+    //   ? product.sale_price
+    //   : Number(activeVariant.retail_price),
     amount: Number(activeVariant.retail_price),
     baseAmount: Number(activeVariant.retail_price),
     currencyCode: "CAD",
@@ -132,9 +134,20 @@ const ProductCard: FC<ProductProps> = ({
 
   product.price = Number(activeVariant.retail_price);
   product.isProductFromPrintful = true;
-  product.slug = "put-a-fantastic-slug-here";
+  product.slug = product.id;
+  // console.log("CHECK ID", product.id);
+
   product.image = product.thumbnail_url;
-  product.description = "Put a Fantastic description here";
+  // product.description = "Put a Fantastic descriptionT here";
+  product.description = contentfulData?.fields?.mainDescription
+    ? contentfulData.fields.mainDescription
+    : "Put a Fantastic description here";
+
+  product.contentfulProductName = contentfulData?.fields?.name;
+
+  // console.log("contentfulData?.fields", contentfulData?.fields);
+
+  // console.log("yooooooooooooo", contentfulData);
 
   function handlePopupView() {
     setModalData({ data: product });
@@ -172,7 +185,7 @@ const ProductCard: FC<ProductProps> = ({
       )}
       // onClick={handlePopupView}
       role="button"
-      title={product?.name}
+      title={contentfulData?.fields?.name}
     >
       <div
         className={cn(
@@ -197,7 +210,7 @@ const ProductCard: FC<ProductProps> = ({
           height={demoVariant === "ancient" ? 452 : imgHeight}
           loading={imgLoading}
           quality={100}
-          alt={product?.name || "Product Image"}
+          alt={product.contentfulProductName || "Product Image"}
           className={cn(
             `bg-gray-300 object-cover ${
               !disableBorderRadius && "rounded-s-md"
@@ -331,7 +344,7 @@ const ProductCard: FC<ProductProps> = ({
           })}
           onClick={handlePopupView}
         >
-          {product?.name}
+          {product?.contentfulProductName}
         </h2>
         {!hideProductDescription && product?.description && (
           <p
@@ -375,24 +388,27 @@ const ProductCard: FC<ProductProps> = ({
         <div className="flex items-center justify-between ">
           <VariantPicker
             value={activeVariantExternalId}
-            onChange={({ target: { value } }) =>
+            onChange={({ target: { value } }: any) =>
               setActiveVariantExternalId(value)
             }
             variants={variants}
             disabled={oneStyle}
           />
-          <button
-            className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
-            // className="snipcart-add-item"
-            data-item-id={activeVariantExternalId}
-            data-item-price={activeVariant.retail_price}
-            data-item-url={`/api/products/${activeVariantExternalId}`}
-            data-item-description={activeVariant.name}
-            data-item-image={activeVariantFile.preview_url}
-            data-item-name={name}
-          >
-            Add to Snip
-          </button>
+          {product?.description && product.contentfulProductName && (
+            <button
+              className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+              // className="snipcart-add-item"
+              data-item-id={activeVariantExternalId}
+              data-item-price={activeVariant.retail_price}
+              data-item-url={`/api/products/${activeVariantExternalId}`}
+              data-item-description={product?.description}
+              // data-item-description={activeVariant.name}
+              data-item-image={activeVariantFile.preview_url}
+              data-item-name={`${product.contentfulProductName} - ${activeVariant.name}`}
+            >
+              Add to Snip
+            </button>
+          )}
         </div>
       </div>
 

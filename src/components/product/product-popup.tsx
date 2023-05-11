@@ -32,41 +32,33 @@ export default function ProductPopup() {
     currencyCode: "CAD",
   });
 
-  // console.log("DATA", data, price, basePrice, discount);
-
   const variations = getVariations(data.variations);
 
-  const { slug, image, name, description } = data;
+  const { slug, image, contentfulProductName, description } = data;
 
-  // if (data.isProductFromPrintful) {
   const { variants } = data;
 
   // gets the first variant from the list
   const [firstVariant] = variants;
   // checks if there's only one variant
   const oneStyle = variants.length === 1;
-
   // sets the active variant to the first one
   const [activeVariantExternalId, setActiveVariantExternalId] = useState(
     firstVariant.external_id
   );
-
   // gets the active variant object based on the active variant external id
   const activeVariant = variants.find(
-    (v) => v.external_id === activeVariantExternalId
+    (v: any) => v.external_id === activeVariantExternalId
   );
-
   // gets the active variant's file with type "preview"
   const activeVariantFile = activeVariant.files.find(
-    ({ type }) => type === "preview"
+    ({ type }: any) => type === "preview"
   );
-
   // formats the price to show in the CA dollar currency
   const formattedPrice = new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: activeVariant.currency,
   }).format(activeVariant.retail_price);
-  // }
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -120,7 +112,7 @@ export default function ProductPopup() {
                 : image?.original ??
                   "/assets/placeholder/products/product-thumbnail.svg"
             }
-            alt={name}
+            alt={contentfulProductName}
             className="lg:object-cover lg:w-full lg:h-full"
           />
         </div>
@@ -133,7 +125,7 @@ export default function ProductPopup() {
               role="button"
             >
               <h2 className="text-heading text-lg md:text-xl lg:text-2xl font-semibold hover:text-black">
-                {name}
+                {contentfulProductName}
               </h2>
             </div>
             <p className="text-sm leading-6 md:text-body md:leading-7">
@@ -142,7 +134,7 @@ export default function ProductPopup() {
 
             <div className="flex items-center mt-3 justify-between mb-4 space-s-3 sm:space-s-4">
               <div className="text-heading font-semibold text-base md:text-xl lg:text-2xl">
-                {data.isProductPrintful ? formattedPrice : price}
+                {formattedPrice}
               </div>
               {discount && (
                 <del className="font-segoe text-gray-400 text-base lg:text-xl ps-2.5 -mt-0.5 md:mt-0">
@@ -181,16 +173,16 @@ export default function ProductPopup() {
               <>
                 <VariantPicker
                   value={activeVariantExternalId}
-                  onChange={({ target: { value } }) =>
+                  onChange={({ target: { value } }: any) =>
                     setActiveVariantExternalId(value)
                   }
                   variants={data.variants}
                   disabled={oneStyle}
                 />
-                {console.log(
+                {/* {console.log(
                   "data-item-url",
                   `/api/products/${activeVariantExternalId}`
-                )}
+                )} */}
                 <Button
                   className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
                   data-item-id={activeVariantExternalId}
@@ -198,7 +190,7 @@ export default function ProductPopup() {
                   data-item-url={`/api/products/${activeVariantExternalId}`}
                   data-item-description={activeVariant.name}
                   data-item-image={activeVariantFile.preview_url}
-                  data-item-name={name}
+                  data-item-name={`${name} - ${activeVariant.name}`}
                 >
                   Add to Snip
                 </Button>

@@ -1,0 +1,15 @@
+Interesting things i had to do
+    -   I had to remove a 'isLoading' UI feature because the blocking aspect of items
+        very nature, makes Snipcart throw an error.
+
+        See Snipcart order validation: https://docs.snipcart.com/v3/setup/order-validation 
+
+        "Unfortunately if you re-engage ‘isLoading’ our order validation process will 
+        fail as it works the same way we fetch products."
+
+
+Quesitons
+    -   Not sure if my PWA is set up properly. On the index page under getStaticProps, 
+        I prefetchQuery and then i also feth the same data as to pass it in props so i  
+        can then use those values in the intitial state. Is this right to do? Or am I 
+        just double fetching the data?

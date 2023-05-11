@@ -3,6 +3,8 @@ import SectionHeader from "@components/common/section-header";
 import ProductCard from "@components/product/product-card";
 
 import PrintfulProductCard from "@components/product/printful-product-card";
+// import PrintfulProductCard2 from "@components/product/printful-product-card-2";
+
 import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { Product } from "@framework/types";
 import Alert from "@components/ui/alert";
@@ -37,6 +39,7 @@ interface ProductsProps {
   demoVariant?: "ancient";
   disableBorderRadius?: boolean;
   printfulProducts?: PrintfulProduct[];
+  combinedProductData?: any;
 }
 
 const ProductsBlock: React.FC<ProductsProps> = ({
@@ -57,6 +60,7 @@ const ProductsBlock: React.FC<ProductsProps> = ({
   demoVariant,
   disableBorderRadius = false,
   printfulProducts,
+  combinedProductData,
 }) => {
   return (
     <div className={className}>
@@ -93,7 +97,7 @@ const ProductsBlock: React.FC<ProductsProps> = ({
             }
           )}
         >
-          {loading && !products?.length ? (
+          {/* {loading && !products?.length ? (
             <ProductFeedLoader limit={limit} uniqueKey={uniqueKey} />
           ) : (
             products?.map((product: Product) => (
@@ -108,10 +112,9 @@ const ProductsBlock: React.FC<ProductsProps> = ({
                 variant={variant}
                 demoVariant={demoVariant}
                 disableBorderRadius={disableBorderRadius}
-                // printfulProducts={printfulProducts}
               />
             ))
-          )}
+          )} */}
           {/* 
           {loading && printfulProducts ? (
           
@@ -135,7 +138,7 @@ const ProductsBlock: React.FC<ProductsProps> = ({
             ))
           )} */}
 
-          {printfulProducts &&
+          {/* {printfulProducts &&
             printfulProducts?.map((product) => (
               <PrintfulProductCard
                 showCategory={showCategory}
@@ -149,8 +152,30 @@ const ProductsBlock: React.FC<ProductsProps> = ({
                 disableBorderRadius={disableBorderRadius}
                 product={product}
 
+              />
+            ))} */}
+
+          {combinedProductData &&
+            combinedProductData?.map((product: any) => (
+              // {
+              // console.log("TEST PRODUCT", product);
+
+              <PrintfulProductCard
+                showCategory={showCategory}
+                showRating={showRating}
+                hideProductDescription={hideProductDescription}
+                key={`product--key${product.printfulData.id}`}
+                imgWidth={imgWidth}
+                imgHeight={imgHeight}
+                variant={variant}
+                demoVariant={demoVariant}
+                disableBorderRadius={disableBorderRadius}
+                product={product.printfulData}
+                contentfulData={product.contentfulData}
+
                 // printfulProducts={printfulProducts}
               />
+              // }
             ))}
         </div>
       )}

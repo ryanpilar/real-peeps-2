@@ -32,8 +32,7 @@ export default async function handler(
       price: result.retail_price,
       url: `/api/products/${id}`,
     });
-
-  } catch ({ error }) {
+  } catch (error: any) {
     // Log any errors that occur during the request
     console.log(error);
 

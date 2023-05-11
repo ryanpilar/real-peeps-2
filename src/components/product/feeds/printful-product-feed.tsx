@@ -10,6 +10,7 @@ interface Props {
   disableBorderRadius?: boolean;
   className?: string;
   printfulProducts?: PrintfulProduct[];
+  combinedProductData?: any;
 }
 
 export default function NewArrivalsProductFeed({
@@ -20,6 +21,7 @@ export default function NewArrivalsProductFeed({
   disableBorderRadius = false,
   className = "mb-9 md:mb-10 xl:mb-12",
   printfulProducts,
+  combinedProductData,
 }: Props) {
   const { data, isLoading, error } = useNewArrivalProductsQuery({
     limit: 10,
@@ -40,6 +42,7 @@ export default function NewArrivalsProductFeed({
       demoVariant={demoVariant}
       disableBorderRadius={disableBorderRadius}
       printfulProducts={printfulProducts}
+      combinedProductData={combinedProductData}
     />
   );
 }
