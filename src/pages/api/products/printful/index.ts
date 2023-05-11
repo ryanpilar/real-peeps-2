@@ -14,7 +14,7 @@ type Data = {
   // id: string;
   // name?: string;
   // mainDescription?: string;
-  // productDetails?: string;
+  productDetails?: string;
   // additionalInfo?: string;
   // images?: any;
   // price?: number;

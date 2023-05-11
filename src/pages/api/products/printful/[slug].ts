@@ -31,10 +31,12 @@ export default async function handler(
 ) {
   // Extract the 'id' query parameter from the request object
   const { slug } = req.query;
+  console.log("API RESPONSE! FOR:", slug);
 
   try {
     // Get Printful product data
     const printfulProductData = await printful.get(`sync/products/${slug}`);
+    console.log("PRODUCT DATA FROM API RESPONSE", printfulProductData);
 
     // Make a new object by destructuring and extracting sync_product and sync_variants
     const { sync_product, sync_variants } = printfulProductData.result;
