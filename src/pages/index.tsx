@@ -59,10 +59,10 @@ const Home: React.FC<IndexPageProps> = ({
     async () => {
       const data = await fetchPrintfulProducts();
       return data;
+    },
+    {
+      initialData: initialData,
     }
-    // {
-    //   initialData: initialData,
-    // }
   );
 
   return (
