@@ -52,20 +52,20 @@ export default function ProductPage({ printfulProduct, slug }: any) {
 
 ProductPage.Layout = Layout;
 
-// export async function getStaticPaths() {
-//   // Use Id's to fetch contentful product information
-//   const contentfulProducts = await getContentfulProducts();
-//   const paths = contentfulProducts.map((product: any) => {
-//     return {
-//       params: { slug: product.fields.printfulId },
-//     };
-//   });
+export async function getStaticPaths() {
+  // Use Id's to fetch contentful product information
+  const contentfulProducts = await getContentfulProducts();
+  const paths = contentfulProducts.map((product: any) => {
+    return {
+      params: { slug: product.fields.printfulId },
+    };
+  });
 
-//   console.log("paths paths paths", paths);
+  console.log("paths paths paths", paths);
 
-//   // return an object with the paths and fallback value
-//   return { paths, fallback: true };
-// }
+  // return an object with the paths and fallback value
+  return { paths, fallback: true };
+}
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const queryClient = new QueryClient();
