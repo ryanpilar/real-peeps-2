@@ -61,6 +61,8 @@ export async function getStaticPaths() {
     };
   });
 
+  console.log("paths paths paths", paths);
+
   // return an object with the paths and fallback value
   return { paths, fallback: true };
 }
