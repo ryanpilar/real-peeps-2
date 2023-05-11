@@ -69,7 +69,8 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const queryClient = new QueryClient();
-  const { slug }: any = params;
+  // const { slug }: any = params;
+  const { slug = null }: any = params;
 
   // run the data fetch request through reat-query for PWA
   await queryClient.prefetchQuery(
