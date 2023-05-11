@@ -54,16 +54,16 @@ const Home: React.FC<IndexPageProps> = ({
 }) => {
   const initialData = { printfulProducts, combinedProductData };
 
-  const { data: printfulProductsData } = useQuery(
-    [API_ENDPOINTS.PRINTFUL_PRODUCT],
-    async () => {
-      const data = await fetchPrintfulProducts();
-      return data;
-    },
-    {
-      initialData: initialData,
-    }
-  );
+  // const { data: printfulProductsData } = useQuery(
+  //   [API_ENDPOINTS.PRINTFUL_PRODUCT],
+  //   async () => {
+  //     const data = await fetchPrintfulProducts();
+  //     return data;
+  //   },
+  //   {
+  //     initialData: initialData,
+  //   }
+  // );
 
   return (
     <>
@@ -74,8 +74,10 @@ const Home: React.FC<IndexPageProps> = ({
         {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
 
         <PrintfulProductFeed
-          printfulProducts={printfulProductsData.printfulProducts}
-          combinedProductData={printfulProductsData.combinedProductData}
+          // printfulProducts={printfulProductsData.printfulProducts}
+          // combinedProductData={printfulProductsData.combinedProductData}
+          printfulProducts={printfulProducts}
+          combinedProductData={combinedProductData}
         />
       </Container>
 
@@ -120,17 +122,18 @@ const Home: React.FC<IndexPageProps> = ({
 Home.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
   console.log("HEY TESTY");
 
   // run the data fetch request through reat-query for PWA
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.PRINTFUL_PRODUCT],
-    async () => await fetchPrintfulProducts()
-  );
+  // await queryClient.prefetchQuery(
+  //   [API_ENDPOINTS.PRINTFUL_PRODUCT],
+  //   async () => await fetchPrintfulProducts()
+  // );
 
   const { result: products } = await printful.get("sync/products");
+  console.log("Home Page printful products", products);
 
   // Use Id's to fetch printful product information
   const allPrintfulProducts = await Promise.all(
@@ -138,6 +141,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       async ({ id }: any) => await printful.get(`sync/products/${id}`)
     )
   );
+
+  console.log("Home Page VARIANTS and printful products", allPrintfulProducts);
 
   // Put together a list of new objects of PrintfulProduct
   const printfulProducts: PrintfulProduct[] = allPrintfulProducts.map(
@@ -180,7 +185,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ])),
       printfulProducts,
       combinedProductData,
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
     },
   };
 };

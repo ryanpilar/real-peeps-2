@@ -24,16 +24,16 @@ export default function ProductPage({ printfulProduct, slug }: any) {
   // Data fetch/cache via react-query
   // const slug = printfulProduct.id;
 
-  const { data: printfulProductData } = useQuery(
-    [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
-    async () => {
-      const data = await fetchPrintfulProduct(slug);
-      return data;
-    },
-    {
-      initialData: printfulProduct,
-    }
-  );
+  // const { data: printfulProductData } = useQuery(
+  //   [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
+  //   async () => {
+  //     const data = await fetchPrintfulProduct(slug);
+  //     return data;
+  //   },
+  //   {
+  //     initialData: printfulProduct,
+  //   }
+  // );
 
   return (
     <>
@@ -42,8 +42,9 @@ export default function ProductPage({ printfulProduct, slug }: any) {
         <div className="pt-8">
           <Breadcrumb />
         </div>
-        {printfulProductData === undefined ? null : (
-          <ProductSingleDetails productDetails={printfulProductData} />
+        {/* maybe remove: */}
+        {printfulProduct === undefined ? null : (
+          <ProductSingleDetails productDetails={printfulProduct} />
         )}
 
         <RelatedProducts sectionHeading="text-related-products" />
@@ -71,15 +72,15 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
   // const { slug }: any = params;
   const { slug = null }: any = params;
   console.log("slugslugslug", slug);
 
-  // run the data fetch request through reat-query for PWA
-  await queryClient.prefetchQuery([API_ENDPOINTS.PRINTFUL_PRODUCT, slug], () =>
-    fetchPrintfulProduct(slug)
-  );
+  // run the data fetch request through react-query for PWA
+  // await queryClient.prefetchQuery([API_ENDPOINTS.PRINTFUL_PRODUCT, slug], () =>
+  //   fetchPrintfulProduct(slug)
+  // );
 
   // console.log("SLUGSLUG", slug, typeof slug);
 
@@ -98,7 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
       ])),
       printfulProduct,
       slug: slug,
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
     },
   };
 };
