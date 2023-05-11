@@ -78,7 +78,8 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   // console.log("SLUGSLUG", slug, typeof slug);
 
   // this will fetch a printful product, and then look up additional data in contentful
-  const printfulProduct = await fetchPrintfulProduct(slug);
+  let printfulProduct = await fetchPrintfulProduct(slug);
+  printfulProduct = printfulProduct === undefined ? null : printfulProduct;
   console.log("fetched printfulProductTT", printfulProduct);
 
   return {
