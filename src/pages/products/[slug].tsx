@@ -42,9 +42,8 @@ export default function ProductPage({ printfulProduct, slug }: any) {
         <div className="pt-8">
           <Breadcrumb />
         </div>
-        {printfulProductData && (
-          <ProductSingleDetails productDetails={printfulProductData} />
-        )}
+
+        <ProductSingleDetails productDetails={printfulProductData} />
         <RelatedProducts sectionHeading="text-related-products" />
         <Subscription />
       </Container>
@@ -76,9 +75,8 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   console.log("slugslugslug", slug);
 
   // run the data fetch request through reat-query for PWA
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
-    await fetchPrintfulProduct(slug)
+  await queryClient.prefetchQuery([API_ENDPOINTS.PRINTFUL_PRODUCT, slug], () =>
+    fetchPrintfulProduct(slug)
   );
 
   // console.log("SLUGSLUG", slug, typeof slug);
