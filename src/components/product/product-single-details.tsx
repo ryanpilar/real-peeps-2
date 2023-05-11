@@ -86,8 +86,8 @@ const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
     }));
   }
 
-  const { id, name, variants } = productDetails?.printfulData;
-  console.log("id, name, variants", id, name, variants);
+  const { name, variants } = productDetails?.printfulData;
+  console.log("id, name, variants", name, variants);
   // gets the first variant from the list
   const [firstVariant] = variants;
   // checks if there's only one variant
