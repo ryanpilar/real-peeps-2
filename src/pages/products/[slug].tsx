@@ -42,8 +42,10 @@ export default function ProductPage({ printfulProduct, slug }: any) {
         <div className="pt-8">
           <Breadcrumb />
         </div>
+        {printfulProductData === undefined ? null : (
+          <ProductSingleDetails productDetails={printfulProductData} />
+        )}
 
-        <ProductSingleDetails productDetails={printfulProductData} />
         <RelatedProducts sectionHeading="text-related-products" />
         <Subscription />
       </Container>
@@ -88,12 +90,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
   return {
     props: {
-      // ...(await serverSideTranslations(locale!, [
-      //   "common",
-      //   "forms",
-      //   "menu",
-      //   "footer",
-      // ])),
+      ...(await serverSideTranslations(locale!, [
+        "common",
+        "forms",
+        "menu",
+        "footer",
+      ])),
       printfulProduct,
       slug: slug,
       dehydratedState: dehydrate(queryClient),
