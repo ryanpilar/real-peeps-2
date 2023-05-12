@@ -4,9 +4,9 @@ module.exports = {
     // locales: ["en", "de", "es", "ar", "he", "zh"],
     // defaultLocale: "en",
     // localeDetection: false,
-    locales: [],
-    defaultLocale: "",
+    locales: ["en"],
+    defaultLocale: "en",
     localeDetection: false,
   },
-  //   localePath: path.resolve("./public/locales"),
+  localePath: path.resolve("./public/locales"),
 };
