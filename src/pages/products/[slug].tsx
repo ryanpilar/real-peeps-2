@@ -68,7 +68,7 @@ export async function getStaticPaths() {
   console.log("paths paths paths", paths);
 
   // return an object with the paths and fallback value
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
