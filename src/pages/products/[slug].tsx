@@ -57,6 +57,8 @@ export default function ProductPage({ printfulProduct, slug }: any) {
 ProductPage.Layout = Layout;
 
 export async function getStaticPaths() {
+  const excludedPaths = ["/en/products", "/en/products/[slug]"];
+
   // Use Id's to fetch contentful product information
   const contentfulProducts = await getContentfulProducts();
   const paths = contentfulProducts.map((product: any) => {
@@ -91,12 +93,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale!, [
-        "common",
-        "forms",
-        "menu",
-        "footer",
-      ])),
+      // ...(await serverSideTranslations(locale!, [
+      //   "common",
+      //   "forms",
+      //   "menu",
+      //   "footer",
+      // ])),
       printfulProduct,
       slug: slug,
       // dehydratedState: dehydrate(queryClient),

@@ -33,6 +33,4 @@ module.exports = withPWA({
   images: {
     domains: ["files.cdn.printful.com"],
   },
-  // Exclude specific locales from pre-rendering
-  excludeLocaleFromExport: ["en", "ar", "de", "es", "he", "zh"],
 });
