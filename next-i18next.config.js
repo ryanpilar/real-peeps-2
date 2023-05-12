@@ -5,7 +5,7 @@ module.exports = {
     // defaultLocale: "en",
     // localeDetection: false,
     locales: ["en"],
-    defaultLocale: null,
+    defaultLocale: "en",
     localeDetection: false,
   },
   use: [],
