@@ -84,8 +84,14 @@ export default async function handler(
        origin server in the background. 
     */
     res.setHeader("Access-Control-Allow-Origin", "*");
-
-    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, DELETE"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
 
     // Respond with the variant data, including the ID, price, and URL
     res.status(200).json({

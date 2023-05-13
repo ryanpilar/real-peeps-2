@@ -24,7 +24,15 @@ export default async function handler(
     const { result } = await printful.get(`store/variants/@${id}`);
 
     // Set the caching headers for the response
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.setHeader(
+    //   "Access-Control-Allow-Methods",
+    //   "GET, POST, OPTIONS, PUT, DELETE"
+    // );
+    // res.setHeader(
+    //   "Access-Control-Allow-Headers",
+    //   "Content-Type, Authorization"
+    // );
 
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
