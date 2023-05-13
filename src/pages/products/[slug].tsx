@@ -43,9 +43,9 @@ export default function ProductPage({ printfulProduct, slug }: any) {
           <Breadcrumb />
         </div>
         {/* maybe remove: */}
-        {printfulProduct === undefined ? null : (
-          <ProductSingleDetails productDetails={printfulProduct} />
-        )}
+        {/* {printfulProduct === undefined ? null : ( */}
+        <ProductSingleDetails productDetails={printfulProduct} />
+        {/* )} */}
 
         <RelatedProducts sectionHeading="text-related-products" />
         <Subscription />
@@ -56,19 +56,35 @@ export default function ProductPage({ printfulProduct, slug }: any) {
 
 ProductPage.Layout = Layout;
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }: any) {
   // Use Id's to fetch contentful product information
   const contentfulProducts = await getContentfulProducts();
   const paths = contentfulProducts.map((product: any) => {
     return {
-      params: { slug: product.fields.printfulId },
+      params: { slug: product.fields.printfulId.toString() },
+      // locale: locale !== "en" ? locale : undefined,
+      // locale: "en",
     };
   });
 
+  const localePaths = contentfulProducts.map((product: any) => {
+    // locales.map(() =>
+    return {
+      // locales.map((locale) => ({
+      params: { slug: product.fields.printfulId.toString() },
+      // locale: locale !== "en" ? locale : undefined,
+      locale: "en", // Pass locale here
+    };
+    // )
+  });
+  // .flat(); // Flatten array to avoid nested arrays
+  console.log("localePaths localePaths localePaths", localePaths);
   console.log("paths paths paths", paths);
 
   // return an object with the paths and fallback value
-  return { paths, fallback: "blocking" };
+  // return { paths, fallback: false };
+  // return { paths, fallback: true };
+  return { paths: [...paths, ...localePaths], fallback: true };
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => {

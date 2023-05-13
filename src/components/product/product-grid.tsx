@@ -27,7 +27,8 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
   console.log("DATA ACTUALLYU IN THE PRODUCT GRID", data);
 
-  if (error) return <p>{error.message}</p>;
+  if (error)
+    return <p>- ERROR - COMING FROM useProductsQuery: {error.message}</p>;
 
   const { t } = useTranslation("common");
 
