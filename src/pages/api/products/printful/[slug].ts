@@ -59,10 +59,8 @@ export default async function handler(
        continue to serve the stale response while revalidating it with the 
        origin server in the background. 
     */
-    res.setHeader(
-      "Cache-Control",
-      "s-maxage=3600, stale-while-revalidate, Access-Control-Allow-Origin"
-    );
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     // Respond with the variant data, including the ID, price, and URL
     res.status(200).json({
