@@ -92,11 +92,11 @@ ProductPage.Layout = Layout;
 //   return { paths: [...paths, ...localePaths], fallback: false };
 // }
 
-export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
-  // export const getServerSideProps: GetServerSideProps = async ({
-  //   locale,
-  //   params,
-  // }) => {
+// export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  params,
+}) => {
   // const queryClient = new QueryClient();
   // const { slug }: any = params;
   const { slug = null }: any = params;
