@@ -35,9 +35,7 @@ interface ProductsProps {
 
 const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
   console.log("DATADATA productDetails", productDetails);
-
-  const router = useRouter();
-  if (router.isFallback) return null;
+  yy;
 
   const {
     query: { slug },
