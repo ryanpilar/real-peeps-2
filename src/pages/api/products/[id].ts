@@ -24,6 +24,8 @@ export default async function handler(
     const { result } = await printful.get(`store/variants/@${id}`);
 
     // Set the caching headers for the response
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     // Respond with the variant data, including the ID, price, and URL
