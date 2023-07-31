@@ -35,7 +35,6 @@ interface ProductsProps {
 
 const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
   console.log("DATADATA productDetails", productDetails);
-  yy;
 
   const {
     query: { slug },

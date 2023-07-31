@@ -23,7 +23,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     hasNextPage,
     data,
     error,
-  } = useProductsQuery({ limit: 10, ...query });
+  } = useProductsQuery({ limit: 100, ...query });
 
   console.log("DATA ACTUALLYU IN THE PRODUCT GRID", data);
 

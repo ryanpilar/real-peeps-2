@@ -78,17 +78,21 @@ const fetchProducts = async ({ queryKey }: any) => {
   return {
     data: allProducts,
     paginatorInfo: {
-      nextPageUrl: "",
+      nextPageUrl: null,
+      // nextPageUrl: data.pagination.next_page ?? null,
     },
   };
 };
 
 const useProductsQuery = (options: QueryOptionsType) => {
+  console.log("MOFO OPTIONS", options);
+
   // useInfiniteQuery is used to fetch data in a paginated fashion.
   return useInfiniteQuery<PaginatedProduct, Error>(
     [API_ENDPOINTS.PRINTFUL_PRODUCT, options],
     fetchProducts,
     {
+      // This property holds the URL for the next page of data.
       getNextPageParam: ({ paginatorInfo }) => paginatorInfo.nextPageUrl,
     }
   );

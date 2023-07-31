@@ -29,16 +29,16 @@ export default function ProductPage({ printfulProduct, slug }: any) {
   // Data fetch/cache via react-query
   // const slug = printfulProduct.id;
 
-  // const { data: printfulProductData } = useQuery(
-  //   [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
-  //   async () => {
-  //     const data = await fetchPrintfulProduct(slug);
-  //     return data;
-  //   },
-  //   {
-  //     initialData: printfulProduct,
-  //   }
-  // );
+  const { data: printfulProductData } = useQuery(
+    [API_ENDPOINTS.PRINTFUL_PRODUCT, slug],
+    async () => {
+      const data = await fetchPrintfulProduct(slug);
+      return data;
+    },
+    {
+      initialData: printfulProduct,
+    }
+  );
 
   return (
     <>
@@ -49,7 +49,7 @@ export default function ProductPage({ printfulProduct, slug }: any) {
         </div>
         {/* maybe remove: */}
         {/* {printfulProduct === undefined ? null : ( */}
-        <ProductSingleDetails productDetails={printfulProduct} />
+        <ProductSingleDetails productDetails={printfulProductData} />
         {/* )} */}
 
         <RelatedProducts sectionHeading="text-related-products" />
@@ -97,19 +97,20 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
   params,
 }) => {
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
   // const { slug }: any = params;
   const { slug = null }: any = params;
-  console.log("slugslugslug", slug);
+  // console.log("slugslugslug", slug);
 
   // run the data fetch request through react-query for PWA
-  // await queryClient.prefetchQuery([API_ENDPOINTS.PRINTFUL_PRODUCT, slug], () =>
-  //   fetchPrintfulProduct(slug)
-  // );
+  await queryClient.prefetchQuery([API_ENDPOINTS.PRINTFUL_PRODUCT, slug], () =>
+    fetchPrintfulProduct(slug)
+  );
 
   // console.log("SLUGSLUG", slug, typeof slug);
 
   // this will fetch a printful product, and then look up additional data in contentful
+
   let printfulProduct = await fetchPrintfulProduct(slug);
   // printfulProduct = printfulProduct === undefined ? null : printfulProduct;
   console.log("fetched printfulProductTT", printfulProduct);
@@ -124,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       ])),
       printfulProduct,
       slug: slug,
-      // dehydratedState: dehydrate(queryClient),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
