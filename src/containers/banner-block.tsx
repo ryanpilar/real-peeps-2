@@ -18,7 +18,7 @@ const BannerBlock: React.FC<BannerProps> = ({
         <BannerCard
           key={`banner--key${banner.id}`}
           banner={banner}
-          href={`${ROUTES.COLLECTIONS}/${banner.slug}`}
+          href={`${ROUTES.PRODUCT}/${banner.slug}`}
           effectActive={true}
           variant="default"
           className={

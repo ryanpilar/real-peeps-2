@@ -22,9 +22,9 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
         ]}
         title="Real Peeps - Creative collaberative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends"
         description="Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends"
-        canonical="https://chawkbazar.vercel.app/"
+        canonical="https://real-peeps-2.netlify.app/"
         openGraph={{
-          url: "https://chawkbazar.vercel.app",
+          url: "https://real-peeps-2.netlify.app/",
           title:
             "Real Peeps - Creative collaberative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends",
           description:
@@ -59,7 +59,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 
       <Footer />
       <MobileNavigation />
-      <Search />
+      {/* <Search /> */}
       <CookieBar
         title={t("text-cookies-title")}
         hide={acceptedCookies}

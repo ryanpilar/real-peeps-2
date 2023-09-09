@@ -1,28 +1,28 @@
-import Image from 'next/image';
-import Text from '@components/ui/text';
-import cn from 'classnames';
-import Link from '@components/ui/link';
-import { useTranslation } from 'next-i18next';
+import Image from "next/image";
+import Text from "@components/ui/text";
+import cn from "classnames";
+import Link from "@components/ui/link";
+import { useTranslation } from "next-i18next";
 const data = {
-  title: 'app-heading',
-  subTitle: 'app-sub-heading',
-  appImage: '/assets/images/app.png',
-  appImage2: '/assets/images/app2.png',
-  appImage3: '/assets/images/app3.png',
+  title: "app-heading",
+  subTitle: "app-sub-heading",
+  appImage: "/assets/images/app.png",
+  appImage2: "/assets/images/app2.png",
+  appImage3: "/assets/images/app3.png",
   appButtons: [
     {
       id: 1,
-      slug: '/#',
-      altText: 'button-app-store',
-      appButton: '/assets/images/app-store.svg',
+      slug: "/#",
+      altText: "button-app-store",
+      appButton: "/assets/images/app-store.svg",
       buttonWidth: 209,
       buttonHeight: 60,
     },
     {
       id: 2,
-      slug: '/#',
-      altText: 'button-play-store',
-      appButton: '/assets/images/play-store.svg',
+      slug: "/#",
+      altText: "button-play-store",
+      appButton: "/assets/images/play-store.svg",
       buttonWidth: 209,
       buttonHeight: 60,
     },
@@ -31,23 +31,30 @@ const data = {
 
 interface Props {
   className?: string;
-  variant?: 'modern' | 'ancient';
+  variant?: "modern" | "ancient";
   disableBorderRadius?: boolean;
 }
 
-const DownloadApps: React.FC<Props> = ({ className, variant, disableBorderRadius = false }) => {
+const DownloadApps: React.FC<Props> = ({
+  className,
+  variant,
+  disableBorderRadius = false,
+}) => {
   const { appButtons, title, subTitle, appImage, appImage2, appImage3 } = data;
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   return (
     <div
       className={cn(
-        'flex justify-between items-end rounded-lg bg-gray-200 pt-5 md:pt-8 lg:pt-10 xl:pt-14 px-6 md:px-12 lg:px-20 2xl:px-24 3xl:px-36',
+        "flex justify-between items-end rounded-lg bg-gray-200 pt-5 md:pt-8 lg:pt-10 xl:pt-14 px-6 md:px-12 lg:px-20 2xl:px-24 3xl:px-36",
         className
       )}
     >
       <div className="flex-shrink-0 w-full sm:w-60 md:w-96 lg:w-auto lg:max-w-lg xl:max-w-xl lg:flex lg:items-center pb-5 md:pb-8 lg:pb-12 xl:pb-16">
         <div className="py-4 md:py-6 xl:py-8 text-center sm:text-start">
-          <Text variant="mediumHeading" className="-mt-1 mb-2 md:mb-3 lg:mb-3.5 xl:mb-4">
+          <Text
+            variant="mediumHeading"
+            className="-mt-1 mb-2 md:mb-3 lg:mb-3.5 xl:mb-4"
+          >
             {t(`${title}`)}
           </Text>
           <h2
@@ -66,7 +73,9 @@ const DownloadApps: React.FC<Props> = ({ className, variant, disableBorderRadius
                 <img
                   src={item.appButton}
                   alt={t(`${item.altText}`)}
-                  className={`w-36 lg:w-44 xl:w-auto ${!disableBorderRadius && 'rounded-md'}`}
+                  className={`w-36 lg:w-44 xl:w-auto ${
+                    !disableBorderRadius && "rounded-md"
+                  }`}
                   width={item.buttonWidth}
                   height={item.buttonHeight}
                 />
@@ -77,8 +86,14 @@ const DownloadApps: React.FC<Props> = ({ className, variant, disableBorderRadius
       </div>
       <div className="hidden sm:flex items-end ps-4 -me-0.5 2xl:-me-1.5 w-60 md:w-72 lg:w-96 xl:w-auto">
         <Image
-          src={variant === 'modern' ? appImage2 : variant === 'ancient' ? appImage3 : appImage}
-          alt={t('text-app-thumbnail')}
+          src={
+            variant === "modern"
+              ? appImage2
+              : variant === "ancient"
+              ? appImage3
+              : appImage
+          }
+          alt={t("text-app-thumbnail")}
           width={375}
           height={430}
         />

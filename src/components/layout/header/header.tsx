@@ -45,7 +45,7 @@ const Header: React.FC = () => {
 
           <HeaderMenu
             data={site_header.menu}
-            className="hidden lg:flex md:ms-6 xl:ms-10"
+            className=" hidden lg:flex md:ms-6 xl:ms-10"
           />
 
           {/* <div className="flex-shrink-0 ms-auto lg:me-5 xl:me-8 2xl:me-10">
@@ -105,7 +105,7 @@ const Header: React.FC = () => {
                 {t("text-account")}
               </AuthMenu>
             </div> */}
-            <CartButton />
+            {/* <CartButton /> */}
           </div>
         </div>
       </div>

@@ -1,0 +1,41 @@
+/* containers */
+
+.text-condensed-black {
+  color: #202324;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  line-height: 139.6%; /* 67.008px */
+  font-style: normal;
+}
+.text-condensed-white {
+  color: whitesmoke;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  line-height: 139.6%; /* 67.008px */
+  font-style: normal;
+}
+
+/* headings */
+
+.h2 {
+  color: #202324;
+  font-family: Open Sans;
+  font-weight: 525;
+  /* line-height: 214.6%;  */
+}
+
+/* buttons */
+
+.lg-btn {
+  margin: 2rem;
+  padding: 2rem 5rem;
+}
+
+/* line-breaks */
+
+.line-break-gray {
+  height: 1.5px;
+  background: rgba(32, 35, 36, 0.2);
+}
