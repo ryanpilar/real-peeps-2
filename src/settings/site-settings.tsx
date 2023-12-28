@@ -24,12 +24,12 @@ import { SunglassIcon } from "@components/icons/sunglass-icon";
 import { SneakerIcon } from "@components/icons/sneaker-icon";
 
 export const siteSettings = {
-  name: "Real Peeps Art & Clothing",
+  name: "Real Peeps Art & Clothing Studio",
   description:
-    "Be Part Of A Very Cool Community Art Project. Learn about the project and shop our store.",
+    "Be Part Of A Community Art Project. Learn about the project and shop our store.",
   author: {
     name: "ryanpilar",
-    websiteUrl: "https://ryan-pilar.netlify.app",
+    websiteUrl: "https://ryan-pilar-2.netlify.app",
     address: "",
   },
   logo: {
