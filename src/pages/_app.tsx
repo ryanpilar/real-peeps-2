@@ -1,87 +1,14 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
-/**
-	This type definition is used to define the props for the custom _app.js component.
-	The AppProps type definition contains two properties, "Component" 
-	and "pageProps", which are destructured in the function signature of the "CustomApp" 
-	function. 
-	
-	The "Component" property refers to the page component that is being rendered, 
-	and "pageProps" refers to the props for that page component.
-
-	By importing the AppProps type definition, the TypeScript compiler is able to check that 
-	the props passed to the "CustomApp" component are of the correct type. This helps to catch 
-	type errors and ensure type safety in the application.
- */
 import type { AppProps } from "next/app";
 
-/**
-	AnimatePresence animates components as they enter and exit the DOM.  
-	it is passed a mode prop of "wait", which means that it will wait for the animation 
-	to complete before removing the exiting component from the DOM. It is also passed an 
-	onExitComplete prop, which is a function that will be called once the exiting component 
-	has finished its exit animation.
-
-	AnimatePresence wraps the entire application, and its purpose is to provide a container 
-	for animating the transitions between different pages of the application.
-*/
 import { AnimatePresence } from "framer-motion";
 
-/* 	Provides a QueryClient instance to the React component tree. This enables caching and 
-	management of remote data queries in the application, and ensures that any data fetched using 
-	useQuery or useMutation hooks is shared and synchronized across components. The QueryClient 
-	is created using the useRef hook, so that it is only created once, even when the component is 
-	re-rendered. 
-
-	When you wrap your application with QueryClientProvider, you can access the QueryClient 
-	instance using the useQueryClient hook, and then use it to perform various operations, such 
-	as fetching data and updating the cache.
-*/
 import { QueryClient, QueryClientProvider } from "react-query";
 
-/* 	
-	The purpose of <Hydrate state={pageProps.dehydratedState}> in the provided code is to 
-	hydrate the React Query cache on the client-side with the data that was serialized on the 
-	server-side during server-side rendering.
-
-	The Hydrate component is provided by the react-query/hydration package, and it is used to 
-	restore the state of the QueryClient on the client-side. The state prop passed to it is an 
-	object containing the serialized state of the QueryClient. This state is generated on the 
-	server-side during server-side rendering, and it includes any data that was fetched using 
-	the useQuery hook.
-
-	By using the Hydrate component, the client-side QueryClient instance is initialized with the 
-	same state as the server-side instance, which ensures that any data fetched during server-side 
-	rendering is available immediately on the client-side, without the need to re-fetch it. This 
-	can help improve the performance of the application and provide a better user experience. 
-*/
 import { Hydrate } from "react-query/hydration";
 
-/**
-    ManagedUIContext defines a React context object for managing the UI state of an application. 
-
-    It starts by:
-        1.  importing necessary dependencies and custom hooks, 
-        2.  defining the shape of the state object, 
-        3.  initializing the state object with default values, 
-        4.  defining the available action types. 
-        5.  define the available modal views and drawer views, 
-        6.  define the type of the toast message text. 
-        7.  The UIContext is then created with the default values, 
-        8.  a reducer function is defined to accept a state and action and return a new state.
-
-    The UIProvider is defined as a React functional component that sets up a state using 
-    the useReducer hook with the uiReducer function and the initialState object, and returns 
-    a CartProvider component wrapped around the UIContext.Provider component, which provides 
-    the UI state object and dispatch function to all child components in the application.
-
-    Overall, this code creates a context object for managing the UI state of an application, 
-    which can be used to control various aspects of the UI such as the display of modals, 
-    sidebars, and cart.
-
-    URGENT ADD WISHLIST!
- */
 import { ManagedUIContext } from "@contexts/ui.context";
 
 /**
@@ -98,19 +25,10 @@ import ManagedModal from "@components/common/modal/managed-modal";
  */
 import ManagedDrawer from "@components/common/drawer/managed-drawer";
 
-/**
-	This component provides a container for displaying toast notifications
- */
 import { ToastContainer } from "react-toastify";
 
 // import { ReactQueryDevtools } from "react-query/devtools";
 
-/**
-	By wrapping the CustomApp component with appWithTranslation, it allows the application to use 
-	translation functions, such as useTranslation and Trans, which are provided by the next-i18next 
-	library. These functions allow the application to support multiple languages, and to dynamically 
-	switch between languages based on user preferences.
- */
 import { appWithTranslation } from "next-i18next";
 
 import { DefaultSeo } from "@components/common/default-seo";
@@ -130,6 +48,10 @@ import "@styles/tailwind.css";
 import "@styles/rc-drawer.css";
 import "@styles/snipcart.css";
 import "@styles/misc-styles.css";
+// flippy-card
+import "@styles/flippy-card.css";
+// picture frames
+import "@styles/picture-frames.css";
 
 // checks whether the language of the locale is right-to-left (RTL) or not.
 import { getDirection } from "@utils/get-direction";
@@ -154,8 +76,6 @@ function Noop({ children }: React.PropsWithChildren<{}>) {
   return <>{children}</>;
 }
 
-// The "Component" property refers to the page component that is being rendered,
-// and "pageProps" refers to the props for that page component.
 const CustomApp = ({ Component, pageProps }: AppProps) => {
   /**
 	The useRef hook is used to create a mutable variable that can persist across component 

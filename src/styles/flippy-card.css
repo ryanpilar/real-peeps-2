@@ -1,0 +1,20 @@
+/* styles.css */
+
+.img-hover {
+  width: 25%;
+  /* aspect-ratio: 1 / 1; */
+  /* object-fit: cover; */
+  transition: 0.5s;
+  /* cursor: pointer; */
+  clip-path: inset(0 var(--_f) 0 0 round var(--r));
+  transform: perspective(400px) var(--_t, rotateY(var(--_a)));
+  --f: 0.1; /* the parallax factor */
+  --r: 5px; /* radius */
+  --_f: calc(100% * var(--f) / (1 + var(--f)));
+  --_a: calc(90deg * var(--f));
+}
+
+.img-hover:hover {
+  clip-path: inset(0 0 0 var(--_f) round var(--r));
+  --_t: translateX(calc(-1 * var(--_f))) rotateY(calc(-1 * var(--_a)));
+}

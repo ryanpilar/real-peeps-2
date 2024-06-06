@@ -3,12 +3,12 @@ import * as React from "react";
 import BannerBlock from "@containers/banner-block";
 import BannerCard from "@components/common/banner-card";
 
-import StoryPanel from "@containers/story-panel";
-import OriginalWorksBlock from "@containers/original-works-block";
-import LimitedRunApparelBlock from "@containers/limited-run-apparel";
-import StoryPanelTwo from "@containers/story-panel-2";
-import BigImagePanel from "@containers/big-panel";
-import StoryPanelThree from "@containers/story-panel-3";
+import StoryPanel from "@containers/home-story-panel";
+import OriginalWorksBlock from "@containers/home-original-works-block";
+import BigImageBlock from "@containers/home-big-image-block";
+import StoryPanelTwo from "@containers/home-story-panel-2";
+import BigImagePanel from "@containers/home-two-big-images-block";
+import StoryPanelThree from "@containers/home-story-panel-3";
 // import Subscription from "@components/common/subscription";
 
 import Container from "@components/ui/container";
@@ -151,14 +151,13 @@ const Home: React.FC<IndexPageProps> = ({
       <Container>
         <StoryPanel />
         <OriginalWorksBlock data={originalWorksData} />
-        <LimitedRunApparelBlock data={limitedRunApparelData} />
+        <BigImageBlock data={limitedRunApparelData} />
         <StoryPanelTwo data={storyPanelTwoData} />
         <BigImagePanel data={bigPanelData} />
 
         {/* <ExclusiveBlock /> */}
         {/* <CategoryBlock sectionHeading="text-shop-by-category" type="rounded" /> */}
         <StoryPanelThree data={storyPanelThreeData} />
-
         {/* <PrintfulProductFeed
           // printfulProducts={printfulProductsData.printfulProducts}
           // combinedProductData={printfulProductsData.combinedProductData}

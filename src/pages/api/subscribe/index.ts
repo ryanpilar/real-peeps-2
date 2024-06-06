@@ -1,43 +1,70 @@
-import axios from "axios";
+/**
+ * API Route: Add or Update a Contact in the Mailing List
+ *
+ * This API route handles form submissions for adding a contact to the mailing list.
+ * It accepts POST requests with contact data (including email and name) in the body.
+ * Based on the provided email, it either adds a new contact to the mailing list
+ * or updates an existing one.
+ *
+ * Request Body:
+ * - email (required): The email address of the contact.
+ * - name (required): The name of the contact.
+ * - other fields: Additional contact information as needed.
+ *
+ * Responses:
+ * - 201 Created: Contact was successfully added or updated.
+ * - 400 Bad Request: Missing required fields (name or email).
+ * - 405 Method Not Allowed: The request method is not supported by the route.
+ * - 500 Internal Server Error: An error occurred during the operation.
+ */
 
-export default async function handler(req: any, res: any) {
-  // 1. Get the email from the payload and
-  // validate if it is empty.
-  const { email } = req.body;
-  if (!email) {
-    return res.status(400).json({ error: "Please provide an email id." });
+import type { NextApiRequest, NextApiResponse } from "next";
+import { addContactToMailingList } from "src/pages/api-utils/brevoAPI";
+
+interface ApiResponse {
+  message?: string;
+  error?: string;
+}
+interface ContactData {
+  email: string;
+  name: string;
+  [key: string]: any; // For additional contact information fields
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ApiResponse>
+) {
+  if (req.method !== "POST") {
+    return res.status(405).end(`Method Not Allowed`);
   }
 
-  // 2. Use the Revue API Key and create a subscriber using
-  // the email we pass to the API. Please note, we pass the
-  // API Key in the 'Authorization' header.
-  try {
-    const API_KEY = process.env.REVUE_API_KEY;
-    const response = await fetch(`https://www.getrevue.co/api/v2/subscribers`, {
-      method: "POST",
-      body: JSON.stringify({ email: email, double_opt_in: false }),
-      headers: {
-        Authorization: `Token ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-    });
+  const { email, name } = req.body as ContactData;
 
-    // 3. We check in the response if the status is 400
-    // If so, consider it as error and return. Otherwise a 201
-    // for create
-    if (response.status >= 400) {
-      const message = await response.json();
-      console.log(message.error.email[0]);
-      return res.status(400).json({ error: message.error.email[0] });
+  // Constructing contactData with proper typing
+  const contactData: ContactData = { email, name };
+
+  if (!email || !name) {
+    res.status(400).json({ error: "Missing name or email" });
+    return;
+  }
+
+  try {
+    // Use the utility function to add or update the contact in the mailing list
+    const result = await addContactToMailingList(contactData);
+
+    if (result.success) {
+      res.status(201).json({ message: "Contact added to our mailing list" });
+    } else {
+      // Handle case where addContactToMailingList returns a failure without throwing an error
+      throw new Error(
+        (result.error as any)?.message || "Failed to process contact"
+      );
     }
-    // Send a JSON response
-    res.status(201).json({
-      message: `Hey, ${email}, Please check your email and verify it. Can't wait to get you boarded.`,
-      error: "",
+  } catch (error) {
+    console.error("Operation failed:", error);
+    res.status(500).json({
+      error: error instanceof Error ? error.message : "Internal server error",
     });
-  } catch (err) {
-    // 4. If the control goes inside the catch block
-    // let us consider it as a server error(500)
-    return res.status(500).json({ error: err.message || error.toString() });
   }
 }
