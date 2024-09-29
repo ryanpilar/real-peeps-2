@@ -25,8 +25,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
     error,
   } = useProductsQuery({ limit: 100, ...query });
 
-  console.log("DATA ACTUALLYU IN THE PRODUCT GRID", data);
-
   if (error)
     return <p>- ERROR - COMING FROM useProductsQuery: {error.message}</p>;
 
@@ -60,7 +58,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
                 product={product.printfulData}
                 contentfulData={product.contentfulData}
 
-                // printfulProducts={printfulProducts}
+              // printfulProducts={printfulProducts}
               />
             ));
           })

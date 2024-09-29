@@ -18,17 +18,16 @@
  * - 500 Internal Server Error: An error occurred during the operation.
  */
 
-import type { NextApiRequest, NextApiResponse } from "next";
-import { addContactToMailingList } from "src/pages/api-utils/brevoAPI";
+import type { NextApiRequest, NextApiResponse } from "next"
+import { addContactToMailingList } from "@utils/api-utils/brevoAPI"
 
 interface ApiResponse {
-  message?: string;
-  error?: string;
+  message?: string
+  error?: string
 }
 interface ContactData {
-  email: string;
-  name: string;
-  [key: string]: any; // For additional contact information fields
+  email: string
+  [key: string]: any
 }
 
 export default async function handler(
@@ -36,33 +35,32 @@ export default async function handler(
   res: NextApiResponse<ApiResponse>
 ) {
   if (req.method !== "POST") {
-    return res.status(405).end(`Method Not Allowed`);
+    return res.status(405).end(`Method Not Allowed`)
   }
 
-  const { email, name } = req.body as ContactData;
+  const { email } = req.body as ContactData;
 
-  // Constructing contactData with proper typing
-  const contactData: ContactData = { email, name };
+  const contactData: ContactData = { email }
 
-  if (!email || !name) {
-    res.status(400).json({ error: "Missing name or email" });
+  if (!email) {
+    res.status(400).json({ error: "Missing email" })
     return;
   }
 
   try {
-    // Use the utility function to add or update the contact in the mailing list
-    const result = await addContactToMailingList(contactData);
+    const result = await addContactToMailingList(contactData)
 
     if (result.success) {
-      res.status(201).json({ message: "Contact added to our mailing list" });
+      res.status(201).json({ message: "Contact added to our mailing list" })
     } else {
       // Handle case where addContactToMailingList returns a failure without throwing an error
       throw new Error(
         (result.error as any)?.message || "Failed to process contact"
       );
     }
+
   } catch (error) {
-    console.error("Operation failed:", error);
+    console.error("Operation failed:", error)
     res.status(500).json({
       error: error instanceof Error ? error.message : "Internal server error",
     });

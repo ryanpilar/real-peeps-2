@@ -40,9 +40,11 @@ const Subscription: React.FC<Props> = ({
   });
   const { t } = useTranslation();
   const { title, description, buttonText } = data;
+
   async function onSubmit(input: FormValues) {
-    console.log(input, "data");
+    console.log("input formvalues", input);
   }
+
 
   return (
     <div

@@ -17,12 +17,10 @@ const fetchProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(API_ENDPOINTS.PRINTFUL_PRODUCT);
   let allProducts = data.combinedProductData;
   allProducts = shuffle(allProducts);
-  // console.log("UNSHUFFLED", data.combinedProductData);
-  console.log("SHUFFLED", allProducts);
+
 
   // sort data here
   let filteredProducts = false;
-  console.log("key, params", _key, _params);
 
   if (_params.category !== undefined) {
     const searchTags = _params?.category?.split(",");
@@ -33,14 +31,8 @@ const fetchProducts = async ({ queryKey }: any) => {
       );
     });
 
-    console.log("filteredProducts", filteredProducts);
     allProducts = filteredProducts;
   }
-
-  console.log(
-    "allProductsallProducts",
-    allProducts[0].printfulData.variants[0].retail_price
-  );
 
   if (_params.sort_by !== undefined) {
     console.log("sorting!");
@@ -85,7 +77,6 @@ const fetchProducts = async ({ queryKey }: any) => {
 };
 
 const useProductsQuery = (options: QueryOptionsType) => {
-  console.log("MOFO OPTIONS", options);
 
   // useInfiniteQuery is used to fetch data in a paginated fashion.
   return useInfiniteQuery<PaginatedProduct, Error>(

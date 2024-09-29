@@ -145,9 +145,6 @@ Home.Layout = Layout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   // const queryClient = new QueryClient();
-
-  console.log("HEY TESTY");
-
   // run the data fetch request through reat-query for PWA
   // await queryClient.prefetchQuery(
   //   [API_ENDPOINTS.PRINTFUL_PRODUCT],
@@ -155,7 +152,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   // );
 
   const { result: products } = await printful.get("sync/products");
-  console.log("Home Page printful products", products);
 
   // Use Id's to fetch printful product information
   const allPrintfulProducts = await Promise.all(
@@ -163,8 +159,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       async ({ id }: any) => await printful.get(`sync/products/${id}`)
     )
   );
-
-  console.log("Home Page VARIANTS and printful products", allPrintfulProducts);
 
   // Put together a list of new objects of PrintfulProduct
   const printfulProducts: PrintfulProduct[] = allPrintfulProducts.map(

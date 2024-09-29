@@ -1,8 +1,7 @@
 import axios from "axios";
-import { log } from "console";
 
 const API_BASE_URL = "https://api.brevo.com/v3";
-const API_KEY = process.env.BREVO_API_KEY; // Adjusted for server-side environment variable
+const API_KEY = process.env.BREVO_API_KEY;
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -17,7 +16,6 @@ const getContacts = async (params: any = {}): Promise<any> => {
     const response = await axiosInstance.get("/contacts", { params });
 
     if (response) {
-      console.log("RESPONSE", response.data);
     }
 
     return { success: true, data: response.data.contacts };
@@ -56,7 +54,6 @@ const addContactToMailingList = async (contactData: any): Promise<any> => {
       (contact: any) => contact.email === contactData.email
     );
 
-    // Prepare the data for updating the contact
     const updatedData = {
       ...foundContact,
       emailBlacklisted: false, // Ensuring emailBlacklisted is set to false
@@ -75,4 +72,4 @@ const addContactToMailingList = async (contactData: any): Promise<any> => {
   }
 };
 
-export { getContacts, createContact, updateContact, addContactToMailingList };
+export { getContacts, createContact, updateContact, addContactToMailingList }

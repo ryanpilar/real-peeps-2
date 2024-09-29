@@ -13,9 +13,6 @@ import motionProps from "@components/common/drawer/motion";
 export default function SearchTopBar() {
   const { openFilter, displayFilter, closeFilter } = useUI();
   const UiSettings = useUI();
-
-  console.log("UiSettings", UiSettings);
-
   const { t } = useTranslation("common");
   const { locale } = useRouter();
   const dir = getDirection(locale);
