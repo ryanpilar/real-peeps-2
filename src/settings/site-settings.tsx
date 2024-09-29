@@ -24,7 +24,7 @@ import { SunglassIcon } from "@components/icons/sunglass-icon";
 import { SneakerIcon } from "@components/icons/sneaker-icon";
 
 export const siteSettings = {
-  name: "Real Peeps Art & Clothing Studio",
+  name: "Real Peeps Art, Clothing Studio Collective",
   description:
     "Be Part Of A Community Art Project. Learn about the project and shop our store.",
   author: {

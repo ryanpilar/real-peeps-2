@@ -3,14 +3,11 @@ import Header from '@components/layout/header/header-three';
 import { default as Footer } from '@components/layout/footer/footer-two';
 import MobileNavigation from '@components/layout/mobile-navigation/mobile-navigation';
 import Search from '@components/common/search';
-import CookieBar from '@components/common/cookie-bar';
-import { useAcceptCookies } from '@utils/use-accept-cookies';
-import Button from '@components/ui/button';
-import { useTranslation } from 'next-i18next';
+
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
-	const { acceptedCookies, onAcceptCookies } = useAcceptCookies();
-	const { t } = useTranslation('common');
+
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<NextSeo
@@ -57,15 +54,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 			<Footer />
 			<MobileNavigation />
 			<Search />
-			<CookieBar
-				title={t('text-cookies-title')}
-				hide={acceptedCookies}
-				action={
-					<Button onClick={() => onAcceptCookies()} variant="slim">
-						{t('text-accept-cookies')}
-					</Button>
-				}
-			/>
+
 		</div>
 	);
 }

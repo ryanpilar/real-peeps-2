@@ -1,17 +1,11 @@
-import { NextSeo } from "next-seo";
-import Header from "@components/layout/header/header";
-import Footer from "@components/layout/footer/footer";
-import MobileNavigation from "@components/layout/mobile-navigation/mobile-navigation";
-import Search from "@components/common/search";
-import CookieBar from "@components/common/cookie-bar";
-import { useAcceptCookies } from "@utils/use-accept-cookies";
-import Button from "@components/ui/button";
-import { useTranslation } from "next-i18next";
+import { NextSeo } from "next-seo"
+import Header from "@components/layout/header/header"
+import Footer from "@components/layout/footer/footer"
+import MobileNavigation from "@components/layout/mobile-navigation/mobile-navigation"
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
-  const { acceptedCookies, onAcceptCookies } = useAcceptCookies();
-  const { t } = useTranslation("common");
   return (
+
     <div className="flex flex-col min-h-screen">
       <NextSeo
         additionalMetaTags={[
@@ -20,13 +14,13 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
             content: "width=device-width, initial-scale=1.0",
           },
         ]}
-        title="Real Peeps - Creative collaberative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends"
+        title="Real Peeps - Creative collaborative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends"
         description="Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends"
         canonical="https://real-peeps-2.netlify.app/"
         openGraph={{
           url: "https://real-peeps-2.netlify.app/",
           title:
-            "Real Peeps - Creative collaberative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends",
+            "Real Peeps - Creative collaborative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends",
           description:
             "Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends",
           images: [
@@ -59,17 +53,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 
       <Footer />
       <MobileNavigation />
-      {/* <Search /> */}
-      <CookieBar
-        title={t("text-cookies-title")}
-        hide={acceptedCookies}
-        action={
-          <Button onClick={() => onAcceptCookies()} variant="slim">
-            {/* @ts-ignore */}
-            {t("text-accept-cookies")}
-          </Button>
-        }
-      />
+
     </div>
-  );
+  )
 }
