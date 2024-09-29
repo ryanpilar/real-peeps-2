@@ -1,5 +1,8 @@
 import axios from "axios";
 
+/* ------------------------------------|| Brevo API ||------------------------------------ */
+
+
 const API_BASE_URL = "https://api.brevo.com/v3";
 const API_KEY = process.env.BREVO_API_KEY;
 

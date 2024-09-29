@@ -15,7 +15,7 @@ type FormValues = { subscription_email: string }
 
 const defaultValues = { subscription_email: "" };
 
-/* ------------------------------------|| Subscribe To Newsletter ||------------------------------------ */
+/* ------------------------------------|| Subscribe To Newsletter - FORM ||------------------------------------ */
 
 const SubscribeToNewsletter: React.FC<Props> = ({ className = "px-5 sm:px-8 md:px-16 2xl:px-24", disableBorderRadius = false }) => {
 
@@ -52,10 +52,6 @@ const SubscribeToNewsletter: React.FC<Props> = ({ className = "px-5 sm:px-8 md:p
 
   const styles = {
 
-
-    input: `
-      w-full text-center sm:text-start
-    `,
     spinner: `
       animate-spin
       rounded-full
@@ -67,13 +63,13 @@ const SubscribeToNewsletter: React.FC<Props> = ({ className = "px-5 sm:px-8 md:p
 
   return (
     <div className={`
-      ${className}
       ml-2 mr-2 mt-10
       flex flex-col xl:flex-row
       justify-center xl:justify-between
       items-center gap-x-3
       rounded-lg bg-gray-200
-      py-10 md:py-14 lg:py-16
+      py-10 md:py-14 lg:py-
+      ${className}
     `}
     >
       <div className={` lg:-mt-2 xl:-mt-0.5 text-center xl:text-start mb-7 md:mb-8 lg:mb-9 xl:mb-0 xl:w-3/5`}>

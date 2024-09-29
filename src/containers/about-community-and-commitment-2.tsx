@@ -1,26 +1,11 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { getDirection } from "@utils/get-direction";
-import Link from "@components/ui/link";
-import Text from "@components/ui/text";
-import Input from "@components/ui/input";
-import Button from "@components/ui/button";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "next-i18next";
+
+import SubscribeToNewsletter from "@components/forms/subscribe-to-newsletter";
 
 interface Props {
   data: any;
   className?: string;
   disableBorderRadius?: boolean;
 }
-
-type FormValues = {
-  subscription_email: string;
-};
-
-const defaultValues = {
-  subscription_email: "",
-};
 
 const styles = {
   container: `
@@ -83,30 +68,11 @@ const styles = {
   `,
 };
 
-const CommunityAndCommitment2: React.FC<Props> = ({
-  data,
-  className = "px-5 sm:px-8 md:px-16 2xl:px-24",
-  disableBorderRadius = false,
-}) => {
-  const { locale } = useRouter();
-  const dir = getDirection(locale);
-  const {
-    query: { slug },
-  } = useRouter();
+/* ------------------------------------|| Community And Commitment ||------------------------------------ */
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues,
-  });
 
-  async function onSubmit(input: FormValues) {
-    console.log(input, "data");
-  }
+const CommunityAndCommitment2: React.FC<Props> = ({ data }) => {
 
-  // Dynamically add background color from data to the container style
   const containerStyle = `${styles.container} ${data.backgroundColour}`;
 
   return (
@@ -134,50 +100,9 @@ const CommunityAndCommitment2: React.FC<Props> = ({
         In the age of fleeting digital moments, we invite you to pause, to
         experience, and perhaps, become a part of our story.
       </p>
-      <div className={`${styles.subscriptionSection} ${className}`}>
-        <div className={styles.subscriptionText}>
-          <Text
-            variant="mediumHeading"
-            className="sm:mb-0 md:mb-2.5 lg:mb-3 xl:mb-3.5"
-          >
-            Be The First In Line
-          </Text>
-          <p className="text-body text-xs md:text-sm leading-6 md:leading-7">
-            Subscribe, and be the first to know when we come out with new
-            designs.
-          </p>
-        </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={styles.form}
-          noValidate
-        >
-          <div className={styles.inputSection}>
-            <Input
-              disableBorderRadius={disableBorderRadius}
-              placeholderKey="forms:placeholder-email-subscribe"
-              type="email"
-              variant="solid"
-              className={styles.input}
-              {...register("subscription_email", {
-                required: "forms:email-required",
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "forms:email-error",
-                },
-              })}
-              errorKey={errors.subscription_email?.message}
-            />
-            <Button
-              disableBorderRadius={disableBorderRadius}
-              className={styles.button}
-            >
-              <span className="lg:py-0.5">Subscribe</span>
-            </Button>
-          </div>
-        </form>
-      </div>
+
+      <SubscribeToNewsletter />
+
     </div>
   );
 };
