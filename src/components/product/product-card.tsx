@@ -64,7 +64,6 @@ const ProductCard: FC<ProductProps> = ({
   });
 
   function handlePopupView() {
-    console.log('ONCHANGE TESTY', product)
     setModalData({ data: product });
     setModalView("PRODUCT_VIEW");
     return openModal();

@@ -145,7 +145,8 @@ export default function ProductPopup() {
             );
           })}
 
-          <div className="pt-2 md:pt-4">
+          <div className="items-end pt-2 md:pt-4">
+
             <div className={`flex items-center mb-4 space-s-3 sm:space-s-4 ${variants.length <= 1 ? "justify-end" : "justify-between"}`}>
 
               <>
@@ -156,10 +157,11 @@ export default function ProductPopup() {
                   }
                   variants={data.variants}
                   disabled={oneStyle}
+                  className="py-3.5"
                 />
 
                 <Button
-                  className={`snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded`}
+                  className={`snipcart-add-item w-full transition py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded`}
                   data-item-id={activeVariantExternalId}
                   data-item-price={activeVariant.retail_price}
                   data-item-url={`/api/products/${activeVariantExternalId}`}
@@ -180,7 +182,7 @@ export default function ProductPopup() {
                     disabled={!isSelected}
                     loading={addToCartLoader}
                   >
-                    {t("text-add-to-cart")}
+                    Add
                   </Button>
                 </>
               )}
@@ -200,7 +202,7 @@ export default function ProductPopup() {
               variant="flat"
               className="w-full h-11 md:h-12"
             >
-              {t("text-view-details")}
+              More Details
             </Button>
           </div>
         </div>

@@ -5,11 +5,6 @@ import { useQuery } from "react-query";
 
 // ALL PRODUCTS
 export const fetchPrintfulProducts = async () => {
-  console.log(
-    "http endpoints ALL PRODUCTS",
-    `${API_ENDPOINTS.PRINTFUL_PRODUCT}`
-  );
-
   const { data } = await http.get(`${API_ENDPOINTS.PRINTFUL_PRODUCT}`);
   return data;
 };

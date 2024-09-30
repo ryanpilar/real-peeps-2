@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Collapse } from "@components/common/accordion";
-import ReviewForm from "@components/common/form/review-form";
 
 interface Props {
   data: any;
@@ -11,8 +10,6 @@ const ProductContentfulMeta: React.FC<Props> = ({ data }) => {
 
   const productDetails = data?.contentfulData?.productDetails;
   const additionalInfo = data?.contentfulData?.additionalInfo;
-
-  console.log("TEST TEST", data);
 
   return (
     <>

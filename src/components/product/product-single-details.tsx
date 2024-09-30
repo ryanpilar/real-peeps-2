@@ -229,13 +229,14 @@ const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
             <span className="py-2 3xl:px-8">Add to cart</span>
           </Button>
         </div>
-        <div className="py-6">
+
+        {/* <div className="py-6">
           <ul className="text-sm space-y-5 pb-1">
             <li>
               <span className="font-semibold text-heading inline-block pe-2">
                 SKU:
               </span>
-              {/* {data?.sku} */}
+              sku data example
             </li>
             <li>
               <span className="font-semibold text-heading inline-block pe-2">
@@ -245,10 +246,11 @@ const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
                 href="/"
                 className="transition hover:underline hover:text-heading"
               >
-                {/* {data?.category?.name} */}
+                category name data example
+
               </Link>
             </li>
-            {/* {data?.tags && Array.isArray(data.tags) && (
+            {data?.tags && Array.isArray(data.tags) && (
               <li className="productTags">
                 <span className="font-semibold text-heading inline-block pe-2">
                   Tags:
@@ -264,9 +266,9 @@ const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
                   </Link>
                 ))}
               </li>
-            )} */}
+            )}
           </ul>
-        </div>
+        </div> */}
 
         <ProductContentfulMeta data={productDetails} />
       </div>

@@ -93,8 +93,6 @@ const ProductCard: FC<ProductProps> = ({
     currencyCode: "CAD",
   });
 
-  console.log("price, basePrice, discount", price, basePrice, discount)
-
   product.price = Number(activeVariant.retail_price)
   product.isProductFromPrintful = true
   product.slug = product.id;
@@ -107,8 +105,6 @@ const ProductCard: FC<ProductProps> = ({
 
 
   function handlePopupView() {
-    console.log('ONCHANGE TESTY', product)
-    console.log('ONCHANGE activeVariantExternalId', activeVariantExternalId)
     product.userSelectedExternalId = activeVariantExternalId
     setModalData({ data: product });
     setModalView("PRODUCT_VIEW");

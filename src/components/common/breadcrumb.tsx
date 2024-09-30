@@ -59,7 +59,6 @@ export const BreadcrumbItems = (props: any) => {
 
 const Breadcrumb: React.FC<{ separator?: string }> = ({ separator = "/" }) => {
 	const breadcrumbs = useBreadcrumb();
-	console.log('BREADCRUMBS', breadcrumbs)
 	const { t } = useTranslation("common");
 	return (
 		<BreadcrumbItems separator={separator}>
