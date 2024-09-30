@@ -40,10 +40,12 @@ const social = [
 ];
 
 export default function MobileMenu() {
+
   const [activeMenus, setActiveMenus] = useState<any>([]);
   const { site_header } = siteSettings;
   const { closeSidebar } = useUI();
   const { t } = useTranslation('menu');
+
   const handleArrowClick = (menuName: string) => {
     let newActiveMenus = [...activeMenus];
 
@@ -77,9 +79,8 @@ export default function MobileMenu() {
               onClick={() => handleArrowClick(menuName)}
             >
               <IoIosArrowDown
-                className={`transition duration-200 ease-in-out transform text-heading ${
-                  activeMenus.includes(menuName) ? '-rotate-180' : 'rotate-0'
-                }`}
+                className={`transition duration-200 ease-in-out transform text-heading ${activeMenus.includes(menuName) ? '-rotate-180' : 'rotate-0'
+                  }`}
               />
             </div>
           )}
@@ -140,6 +141,30 @@ export default function MobileMenu() {
 
                 return <ListMenu dept={dept} data={menu} hasSubMenu={menu.subMenu} menuName={menuName} key={menuName} menuIndex={index} />;
               })}
+
+              <>
+
+                {/* USER LOGIN */}
+                <button
+                  className="snipcart-customer-signin flex items-center text-[15px] menu-item relative py-3 ps-5 md:ps-6 pe-4 transition duration-300 ease-in-out cursor-pointer focus:outline-none focus:text-blue-600"
+                  aria-label="User login"
+                  onClick={closeSidebar}
+                >
+                  <span className="pr-2">Your Account</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 fill-current"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M4 22a8 8 0 1 1 16 0h-2a6 6 0 1 0-12 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
+                  </svg>
+                </button>
+              </>
+
+
+
             </ul>
           </div>
         </Scrollbar>

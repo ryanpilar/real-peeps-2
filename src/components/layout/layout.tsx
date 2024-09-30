@@ -54,6 +54,8 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       <Footer />
       <MobileNavigation />
 
+
+
     </div>
   )
 }

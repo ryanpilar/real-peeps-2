@@ -14,11 +14,11 @@ const HeaderMenu: React.FC<MenuProps> = ({ data, className }) => {
   const { t } = useTranslation("menu");
   return (
     <nav className={classNames(`headerMenu flex w-full relative`, className)}>
+
       {data?.map((item: any) => (
         <div
-          className={`menuItem group cursor-pointer py-7 ${
-            item.subMenu ? "relative" : ""
-          }`}
+          className={`menuItem group cursor-pointer py-7 ${item.subMenu ? "relative" : ""
+            }`}
           key={item.id}
         >
           <Link
