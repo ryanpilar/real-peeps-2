@@ -1,10 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { printful } from "../../../../lib/printful-client";
-import { getContentfulProductById } from "../../../../utils/useContentful";
-
 import { formatVariantName } from "../../../../lib/format-variant-name";
-
-import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { ROUTES } from "@utils/routes";
 import { PrintfulProduct } from "src/types";
 import { getContentfulProducts } from "../../../../utils/useContentful";
@@ -56,23 +52,28 @@ export default async function handler(
     );
 
     // Use Id's to fetch contentful product information
-    const contentfulProducts = await getContentfulProducts();
+    const contentfulProducts = await getContentfulProducts()
 
     // Combine Printful and Contentful data
-    let combinedProductData = null;
+    let combinedProductData = null
 
     if (contentfulProducts) {
       combinedProductData = printfulProducts.map((product) => {
+
+        // console.log('printful product', product)
+
         const contentfulEntry = contentfulProducts.find((entry: any) => {
-          return entry.fields.printfulId === String(product.id);
+          return entry.fields.printfulId === String(product.id)
         });
+
+        if (!contentfulEntry) return null
 
         return {
           printfulData: { ...product },
           contentfulData:
             contentfulEntry === undefined ? null : contentfulEntry,
         };
-      });
+      }).filter((product) => product !== null)
     }
 
     /**
@@ -83,38 +84,17 @@ export default async function handler(
        continue to serve the stale response while revalidating it with the 
        origin server in the background. 
     */
-    //  res.setHeader("Access-Control-Allow-Origin", "*");
-    //  res.setHeader(
-    //    "Access-Control-Allow-Methods",
-    //    "GET, POST, OPTIONS, PUT, DELETE"
-    //  );
-    //  res.setHeader(
-    //    "Access-Control-Allow-Headers",
-    //    "Content-Type, Authorization"
-    //  );
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     // Respond with the variant data, including the ID, price, and URL
     res.status(200).json({
-      // id: slug as string,
       url: `${process.env.NEXT_PUBLIC_SITE_URL}${ROUTES.PRODUCT}`,
-      // contentfulData: {
-      //   name: contentfulProductData?.fields?.name,
-      //   mainDescription: contentfulProductData?.fields?.mainDescription,
-      //   productDetails: contentfulProductData?.fields?.productDetails,
-      //   additionalInfo: contentfulProductData?.fields?.additionalInfo,
-      //   images: contentfulProductData?.fields?.images,
-      // },
-      // printfulData: {
-      //   ...newObj,
-      // },
       printfulProducts,
       combinedProductData,
     });
   } catch (error: any) {
     // Log any errors that occur during the request
     console.log(error);
-    console.log("/api/product/printful/:slug errors");
     // If an error occurred, respond with a 404 error and the error message
     res.status(404).json({
       errors: [

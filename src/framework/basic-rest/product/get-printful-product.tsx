@@ -11,16 +11,12 @@ export const fetchPrintfulProducts = async () => {
   );
 
   const { data } = await http.get(`${API_ENDPOINTS.PRINTFUL_PRODUCT}`);
-  console.log("FETCHED data ALL PRODUCTS!", data);
   return data;
 };
 
 // SINGLE PRODUCTS
 export const fetchPrintfulProduct = async (slug: string) => {
-  console.log("http endpoints", `${API_ENDPOINTS.PRINTFUL_PRODUCT}/${slug}`);
-
   const { data } = await http.get(`${API_ENDPOINTS.PRINTFUL_PRODUCT}/${slug}`);
-  console.log("FETCHED data", data);
   return data;
 };
 
@@ -31,9 +27,3 @@ export const usePrintfulProductQuery = (slug: string) => {
     () => fetchPrintfulProduct(slug)
   );
 };
-
-// export const fetchFlashSaleProducts = async ({ queryKey }: any) => {
-//   const [_key, _params] = queryKey;
-//   const { data } = await http.get(API_ENDPOINTS.FLASH_SALE_PRODUCTS);
-//   return data;
-// };

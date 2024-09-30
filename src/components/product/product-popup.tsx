@@ -4,7 +4,6 @@ import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "@utils/routes";
 import { useUI } from "@contexts/ui.context";
 import Button from "@components/ui/button";
-import Counter from "@components/common/counter";
 import { useCart } from "@contexts/cart/cart.context";
 import { ProductAttributes } from "@components/product/product-attributes";
 import { generateCartItem } from "@utils/generate-cart-item";
@@ -14,12 +13,9 @@ import { useTranslation } from "next-i18next";
 import VariantPicker from "./product-variant-picker";
 
 export default function ProductPopup() {
+
   const { t } = useTranslation("common");
-  const {
-    modalData: { data },
-    closeModal,
-    openCart,
-  } = useUI();
+  const { modalData: { data }, closeModal, openCart } = useUI();
   const router = useRouter();
   const { addItemToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -38,18 +34,14 @@ export default function ProductPopup() {
 
   const { variants } = data;
 
-  // gets the first variant from the list
   const [firstVariant] = variants;
-  // checks if there's only one variant
+
   const oneStyle = variants.length === 1;
-  // sets the active variant to the first one
-  const [activeVariantExternalId, setActiveVariantExternalId] = useState(
-    firstVariant.external_id
-  );
-  // gets the active variant object based on the active variant external id
-  const activeVariant = variants.find(
-    (v: any) => v.external_id === activeVariantExternalId
-  );
+
+  const [activeVariantExternalId, setActiveVariantExternalId] = useState(data.userSelectedExternalId || firstVariant.external_id);
+
+  const activeVariant = variants.find((v: any) => v.external_id === activeVariantExternalId)
+
   // gets the active variant's file with type "preview"
   const activeVariantFile = activeVariant.files.find(
     ({ type }: any) => type === "preview"
@@ -60,16 +52,12 @@ export default function ProductPopup() {
     currency: activeVariant.currency,
   }).format(activeVariant.retail_price);
 
-  const isSelected = !isEmpty(variations)
-    ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
-      )
-    : true;
+  const isSelected = !isEmpty(variations) ? !isEmpty(attributes) && Object.keys(variations)
+    .every((variation) => attributes.hasOwnProperty(variation))
+    : true
 
   function addToCart() {
     if (!isSelected) return;
-    // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
@@ -77,14 +65,15 @@ export default function ProductPopup() {
     }, 600);
     const item = generateCartItem(data!, attributes);
     addItemToCart(item, quantity);
-    console.log(item, "item");
   }
 
   function navigateToProductPage() {
     closeModal();
-    router.push(`${ROUTES.PRODUCT}/${slug}`, undefined, {
-      locale: router.locale,
-    });
+    const url = activeVariantExternalId
+      ? `${ROUTES.PRODUCT}/${slug}?externalId=${activeVariantExternalId}`
+      : `${ROUTES.PRODUCT}/${slug}`
+
+    router.push(url, undefined, { locale: router.locale });
   }
 
   function handleAttribute(attribute: any) {
@@ -110,7 +99,7 @@ export default function ProductPopup() {
               data.isProductFromPrintful
                 ? image ?? "/assets/placeholder/products/product-thumbnail.svg"
                 : image?.original ??
-                  "/assets/placeholder/products/product-thumbnail.svg"
+                "/assets/placeholder/products/product-thumbnail.svg"
             }
             alt={contentfulProductName}
             className="lg:object-cover lg:w-full lg:h-full"
@@ -144,8 +133,6 @@ export default function ProductPopup() {
             </div>
           </div>
 
-          {/* //////////////////////////////////////////////// */}
-
           {Object.keys(variations).map((variation) => {
             return (
               <ProductAttributes
@@ -159,17 +146,8 @@ export default function ProductPopup() {
           })}
 
           <div className="pt-2 md:pt-4">
-            <div className="flex items-center justify-between mb-4 space-s-3 sm:space-s-4">
-              {/* <Counter
-                quantity={quantity}
-                onIncrement={() => setQuantity((prev) => prev + 1)}
-                onDecrement={() =>
-                  setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-                }
-                disableDecrement={quantity === 1}
-              /> */}
+            <div className={`flex items-center mb-4 space-s-3 sm:space-s-4 ${variants.length <= 1 ? "justify-end" : "justify-between"}`}>
 
-              {/* {data.isProductFromPrintful && ( */}
               <>
                 <VariantPicker
                   value={activeVariantExternalId}
@@ -179,12 +157,9 @@ export default function ProductPopup() {
                   variants={data.variants}
                   disabled={oneStyle}
                 />
-                {/* {console.log(
-                  "data-item-url",
-                  `/api/products/${activeVariantExternalId}`
-                )} */}
+
                 <Button
-                  className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+                  className={`snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm bg-blue-600 text-white focus:text-white hover:bg-blue-500 hover:text-white focus:bg-blue-600 focus:outline-none rounded`}
                   data-item-id={activeVariantExternalId}
                   data-item-price={activeVariant.retail_price}
                   data-item-url={`/api/products/${activeVariantExternalId}`}
@@ -192,19 +167,16 @@ export default function ProductPopup() {
                   data-item-image={activeVariantFile.preview_url}
                   data-item-name={`${name} - ${activeVariant.name}`}
                 >
-                  Add to Snip
+                  Add
                 </Button>
               </>
-              {/* )} */}
 
               {!data.isProductFromPrintful && (
                 <>
                   <Button
                     onClick={addToCart}
                     variant="flat"
-                    className={`w-full h-11 md:h-12 px-1.5 ${
-                      !isSelected && "bg-gray-400 hover:bg-gray-400"
-                    }`}
+                    className={`w-full h-11 md:h-12 px-1.5 ${!isSelected && "bg-gray-400 hover:bg-gray-400"}`}
                     disabled={!isSelected}
                     loading={addToCartLoader}
                   >
@@ -217,7 +189,7 @@ export default function ProductPopup() {
             {viewCartBtn && (
               <button
                 onClick={navigateToCartPage}
-                className="w-full mb-4 h-11 md:h-12 rounded bg-gray-100 text-heading focus:outline-none border border-gray-300 transition-colors hover:bg-gray-50 focus:bg-gray-50"
+                className={`w-full mb-4 h-11 md:h-12 rounded bg-gray-100 text-heading focus:outline-none border border-gray-300 transition-colors hover:bg-gray-50 focus:bg-gray-50 ${variants.length <= 1 ? "justify-end" : ""}`}
               >
                 {t("text-view-cart")}
               </button>

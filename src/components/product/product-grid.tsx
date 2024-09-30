@@ -1,13 +1,10 @@
-import ProductCard from "@components/product/product-card";
 import Button from "@components/ui/button";
 import type { FC } from "react";
-// import { useProductsQuery } from "@framework/product/get-all-products";
 import { useProductsQuery } from "@framework/product/get-all-printful-products";
 
 import { useRouter } from "next/router";
 import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { useTranslation } from "next-i18next";
-import { Product } from "@framework/types";
 import PrintfulProductCard from "@components/product/printful-product-card";
 
 interface ProductGridProps {
@@ -30,6 +27,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
   const { t } = useTranslation("common");
 
+
   return (
     <>
       <div
@@ -39,28 +37,31 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
           <ProductFeedLoader limit={20} uniqueKey="search-product" />
         ) : (
           data?.pages?.map((page) => {
-            return page?.data?.map((product: any) => (
-              //   <ProductCard
-              //     key={`product--key${product.id}`}
-              //     product={product}
-              //     variant="grid"
-              //   />
-              <PrintfulProductCard
-                showCategory={false}
-                showRating={false}
-                hideProductDescription={false}
-                key={`product--key${product.printfulData.id}`}
-                //   imgWidth={imgWidth}
-                //   imgHeight={imgHeight}
-                variant="grid"
-                //   demoVariant={'ancient'}
-                disableBorderRadius={false}
-                product={product.printfulData}
-                contentfulData={product.contentfulData}
+            return page?.data?.map((product: any) => {
+              console.log('product', product)
+              return (
+                //   <ProductCard
+                //     key={`product--key${product.id}`}
+                //     product={product}
+                //     variant="grid"
+                //   />
+                <PrintfulProductCard
+                  showCategory={false}
+                  showRating={false}
+                  hideProductDescription={false}
+                  key={`product--key${product.printfulData.id}`}
+                  //   imgWidth={imgWidth}
+                  //   imgHeight={imgHeight}
+                  variant="grid"
+                  //   demoVariant={'ancient'}
+                  disableBorderRadius={false}
+                  product={product.printfulData}
+                  contentfulData={product.contentfulData}
 
-              // printfulProducts={printfulProducts}
-              />
-            ));
+                // printfulProducts={printfulProducts}
+                />
+              )
+            });
           })
         )}
       </div>

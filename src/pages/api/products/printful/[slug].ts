@@ -1,10 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { printful } from "../../../../lib/printful-client";
 import { getContentfulProductById } from "../../../../utils/useContentful";
-
 import { formatVariantName } from "../../../../lib/format-variant-name";
-
-import { API_ENDPOINTS } from "@framework/utils/api-endpoints";
 import { ROUTES } from "@utils/routes";
 
 // Define the expected response data types
@@ -29,14 +26,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data | Error>
 ) {
+
   // Extract the 'id' query parameter from the request object
   const { slug } = req.query;
-  console.log("API RESPONSE! FOR:", slug);
 
   try {
     // Get Printful product data
-    const printfulProductData = await printful.get(`sync/products/${slug}`);
-    console.log("PRODUCT DATA FROM API RESPONSE", printfulProductData);
+    const printfulProductData = await printful.get(`sync/products/${slug}`)
 
     // Make a new object by destructuring and extracting sync_product and sync_variants
     const { sync_product, sync_variants } = printfulProductData.result;
@@ -68,6 +64,7 @@ export default async function handler(
     //    "Access-Control-Allow-Headers",
     //    "Content-Type, Authorization"
     //  );
+
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     // Respond with the variant data, including the ID, price, and URL
@@ -86,9 +83,10 @@ export default async function handler(
       },
     });
   } catch (error: any) {
+
     // Log any errors that occur during the request
     console.log(error);
-    console.log("/api/product/printful/:slug errors");
+
     // If an error occurred, respond with a 404 error and the error message
     res.status(404).json({
       errors: [

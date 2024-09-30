@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@components/ui/button";
 import Counter from "@components/common/counter";
 import { useRouter } from "next/router";
-import { useProductQuery } from "@framework/product/get-product";
-import { usePrintfulProductQuery } from "@framework/product/get-printful-product";
-
-import { getVariations } from "@framework/utils/get-variations";
 import usePrice from "@framework/product/use-price";
 import { useCart } from "@contexts/cart/cart.context";
-import { generateCartItem } from "@utils/generate-cart-item";
-import { ProductAttributes } from "./product-attributes";
-import isEmpty from "lodash/isEmpty";
 import Link from "@components/ui/link";
-import { toast } from "react-toastify";
 import { useWindowSize } from "@utils/use-window-size";
 import Carousel from "@components/ui/carousel/carousel";
 import { SwiperSlide } from "swiper/react";
@@ -34,12 +26,8 @@ interface ProductsProps {
 }
 
 const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
-  console.log("DATADATA productDetails", productDetails);
 
-  const {
-    query: { slug },
-  } = useRouter();
-
+  const { query: { slug, externalId: userSelectedExternalId } } = useRouter();
   const { width } = useSsrCompatible(useWindowSize(), { width: 0, height: 0 });
   const { addItemToCart } = useCart();
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
@@ -87,15 +75,16 @@ const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
   }
 
   const { id, name, variants } = productDetails?.printfulData;
-  console.log("id, name, variants", id, name, variants);
+
   // gets the first variant from the list
-  const [firstVariant] = variants;
+  const [firstVariant] = variants
+
   // checks if there's only one variant
-  const oneStyle = variants.length === 1;
+  const oneStyle = variants.length === 1
+
   // sets the active variant to the first one
-  const [activeVariantExternalId, setActiveVariantExternalId] = useState(
-    firstVariant.external_id
-  );
+  const [activeVariantExternalId, setActiveVariantExternalId] = useState(userSelectedExternalId || firstVariant.external_id)
+
   // gets the active variant object based on the active variant external id
   const activeVariant = variants.find(
     (v: any) => v.external_id === activeVariantExternalId
@@ -230,12 +219,12 @@ const ProductSingleDetails: React.FC<ProductsProps> = ({ productDetails }) => {
             data-item-image={activeVariantFile.preview_url}
             data-item-name={`${productDetails?.contentfulData?.name} - ${activeVariant.name}`}
             data-item-quantity={quantity}
-            // className={`w-full md:w-6/12 xl:w-full
-            //   ${!isSelected && "bg-gray-400 hover:bg-gray-400"}
-            // `}
+          // className={`w-full md:w-6/12 xl:w-full
+          //   ${!isSelected && "bg-gray-400 hover:bg-gray-400"}
+          // `}
 
-            // disabled={!isSelected}
-            // loading={addToCartLoader}
+          // disabled={!isSelected}
+          // loading={addToCartLoader}
           >
             <span className="py-2 3xl:px-8">Add to cart</span>
           </Button>

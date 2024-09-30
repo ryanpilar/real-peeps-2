@@ -12,30 +12,26 @@ type PaginatedProduct = {
 };
 const fetchProducts = async ({ queryKey }: any) => {
   const [_key, _params] = queryKey;
-  console.log();
-
   const { data } = await http.get(API_ENDPOINTS.PRINTFUL_PRODUCT);
   let allProducts = data.combinedProductData;
   allProducts = shuffle(allProducts);
 
 
   // sort data here
-  let filteredProducts = false;
+  let filteredProducts = false
 
   if (_params.category !== undefined) {
-    const searchTags = _params?.category?.split(",");
 
+    const searchTags = _params?.category?.split(",")
     filteredProducts = allProducts.filter((product) => {
-      return searchTags.some((tag) =>
-        product?.contentfulData?.fields?.category?.includes(tag)
-      );
-    });
+      return searchTags.some((tag) => product?.contentfulData?.fields?.category?.includes(tag))
+    })
 
     allProducts = filteredProducts;
   }
 
   if (_params.sort_by !== undefined) {
-    console.log("sorting!");
+
     const action = _params.sort_by;
 
     switch (action) {

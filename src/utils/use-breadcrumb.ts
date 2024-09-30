@@ -20,8 +20,11 @@ export default function useBreadcrumb() {
 			linkPath.shift();
 
 			const pathArray = linkPath.map((path, i) => {
+
+				const cleanPathFromParams = path.split("?")[0]
+
 				return {
-					breadcrumb: path,
+					breadcrumb: cleanPathFromParams,
 					href: "/" + linkPath.slice(0, i + 1).join("/"),
 				};
 			});
