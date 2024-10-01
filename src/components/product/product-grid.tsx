@@ -1,7 +1,6 @@
 import Button from "@components/ui/button";
 import type { FC } from "react";
 import { useProductsQuery } from "@framework/product/get-all-printful-products";
-
 import { useRouter } from "next/router";
 import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
 import { useTranslation } from "next-i18next";
@@ -27,7 +26,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
 
   const { t } = useTranslation("common");
 
-
   return (
     <>
       <div
@@ -40,11 +38,7 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
             return page?.data?.map((product: any) => {
               console.log('product', product)
               return (
-                //   <ProductCard
-                //     key={`product--key${product.id}`}
-                //     product={product}
-                //     variant="grid"
-                //   />
+
                 <PrintfulProductCard
                   showCategory={false}
                   showRating={false}
@@ -57,8 +51,6 @@ export const ProductGrid: FC<ProductGridProps> = ({ className = "" }) => {
                   disableBorderRadius={false}
                   product={product.printfulData}
                   contentfulData={product.contentfulData}
-
-                // printfulProducts={printfulProducts}
                 />
               )
             });

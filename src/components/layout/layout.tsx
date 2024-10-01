@@ -8,21 +8,18 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 
     <div className="flex flex-col min-h-screen">
       <NextSeo
-        additionalMetaTags={[
-          {
-            name: "viewport",
-            content: "width=device-width, initial-scale=1.0",
-          },
+        additionalMetaTags={[{
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0",
+        },
         ]}
         title="Real Peeps - Creative collaborative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends"
         description="Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends"
         canonical="https://real-peeps-2.netlify.app/"
         openGraph={{
           url: "https://real-peeps-2.netlify.app/",
-          title:
-            "Real Peeps - Creative collaborative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends",
-          description:
-            "Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends",
+          title: "Real Peeps - Creative collaborative art, clothing and accessories that will rock your socks and make you the envy of all your cool friends",
+          description: "Unique creative creations, limited run clothing & accessories that will rock your socks and make you the envy of all your cool friends",
           images: [
             {
               url: "/assets/images/og-image-01.png",
@@ -39,6 +36,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
           ],
         }}
       />
+
       <Header />
 
       <main

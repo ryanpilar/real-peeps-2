@@ -5,12 +5,9 @@
 
     The hook also subscribes to the Snipcart store using the useEffect hook, and updates the state 
     whenever the store changes. Finally, it returns the current state of the hook.
-
 */
 
 import { useReducer, useEffect } from "react";
-
-// Import a helper function from another file.
 import { hasSnipcart } from "../lib/has-snipcart";
 
 const initialState = {
@@ -36,13 +33,14 @@ const reducer = (state, action) => {
   }
 };
 
-// Define the useSnipcartCount hook.
+
 const useSnipcartCount = () => {
-  // Use the useReducer hook to manage the state of the hook.
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Use the useEffect hook to subscribe to the Snipcart store and update the state when the cart changes.
   useEffect(() => {
+
     if (hasSnipcart()) {
       // Subscribe to the store and get the current count of items.
       const unsubscribe = window.Snipcart.store.subscribe(() => {
@@ -52,7 +50,6 @@ const useSnipcartCount = () => {
         dispatch({ type: "SET", payload: itemsCount });
       });
 
-      // Return a function to unsubscribe from the store.
       return unsubscribe;
     }
   }, []);
